@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AquascapeThemeKillerApp.Logic_Interfaces.FishModel>
+
+@{
+    ViewData["Title"] = "GetAllFish";
+}
+
+<h2>GetAllFish</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FishId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FishName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FishType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FishSize)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishSize)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

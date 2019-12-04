@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AquascapeThemeKillerApp.DAL-Factory\AquascapeThemeKillerApp.DAL-Factory.csproj" />
+    <ProjectReference Include="..\AquascapeThemeKillerApp.DAL-Interfaces\AquascapeThemeKillerApp.DAL-Interfaces.csproj" />
+    <ProjectReference Include="..\AquascapeThemeKillerApp.Logic-Interfaces\AquascapeThemeKillerApp.Logic-Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
