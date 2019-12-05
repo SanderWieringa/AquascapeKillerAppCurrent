@@ -12,6 +12,7 @@ namespace AquascapeThemeKillerApp.Logic
     {
         private readonly IAquascapeRepository _aquascapeRepository = AquascapeDALFactory.CreateAquascapeRepository();
         private readonly IPlantCollectionRepository _plantCollectionRepository = PlantDalFactory.CreatePlantCollectionRepository();
+        private readonly IFishCollectionRepository _fishCollectionRepository = FishDalFactory.CreateFishCollectionRepository();
 
         public List<IPlant> PlantsInAquarium { get; } = new List<IPlant>();
         public List<IFish> FishInAquarium { get; } = new List<IFish>();
@@ -79,11 +80,11 @@ namespace AquascapeThemeKillerApp.Logic
         public AquascapeModel GenerateAquascape()
         {
             var aquascape = new Aquascape();
-            if (PlantsInAquarium.Count < (PlantsInAquarium.Count + FishInAquarium.Count * 0.75))
+            foreach (var plant in _plantCollectionRepository.GetAllPlants())
             {
-                foreach (var plant in _plantCollectionRepository.GetAllPlants())
+                if (PlantsInAquarium.Count < (PlantsInAquarium.Count + FishInAquarium.Count * 0.75))
                 {
-
+                    TryAddPlant(plant);
                 }
             }
 
