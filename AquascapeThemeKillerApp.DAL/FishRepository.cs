@@ -16,7 +16,13 @@ namespace AquascapeThemeKillerApp.DAL
 
         public List<FishStruct> GetAllFishes()
         {
-            throw new NotImplementedException();
+            List<FishStruct> fishList = new List<FishStruct>();
+            foreach (var fish in _context.GetAllFishes())
+            {
+                fishList.Add(fish);
+            }
+
+            return fishList;
         }
     }
 }

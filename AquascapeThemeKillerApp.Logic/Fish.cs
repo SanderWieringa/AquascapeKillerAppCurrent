@@ -21,6 +21,11 @@ namespace AquascapeThemeKillerApp.Logic
             FishSize = fishSize;
         }
 
+        public Fish(FishModel fishModel) : this(fishModel.FishId, fishModel.FishName, fishModel.FishType, fishModel.FishSize)
+        {
+
+        }
+
         public Fish(FishStruct fishStruct) : this(fishStruct.FishId, fishStruct.FishName, fishStruct.FishType, fishStruct.FishSize)
         {
 

@@ -80,32 +80,39 @@ namespace AquascapeThemeKillerApp.Logic
         public AquascapeModel GenerateAquascape()
         {
             var aquascape = new Aquascape();
-            foreach (var plant in _plantCollectionRepository.GetAllPlants())
+
+            foreach (var fish in aquascape._fishCollectionRepository.GetAllFishes())
+            {
+                TryAddFish(new Fish(fish), aquascape);
+            }
+
+            foreach (var plant in aquascape._plantCollectionRepository.GetAllPlants())
             {
                 if (PlantsInAquarium.Count < (PlantsInAquarium.Count + FishInAquarium.Count * 0.75))
                 {
-                    TryAddPlant(plant);
+                    TryAddPlant(new Plant(plant), aquascape);
                 }
+
             }
 
             return new AquascapeModel(aquascape);
         }
 
-        public bool TryAddPlant(Plant plantToFill)
+        public bool TryAddPlant(Plant plantToFill, Aquascape aquascape)
         {
-            if (FishInAquarium.Exists(fish => fish.FishType.Equals(1)))
+            if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(1)))
             {
                 return false;
             }
 
-            PlantsInAquarium.Add(plantToFill);
+            aquascape.PlantsInAquarium.Add(plantToFill);
             return true;
         }
 
         // CoupleStyle() new method to assign styles to aquascape
 
         // ToDo: fix Open/Closed problem caused by using strings for FishTypes
-        public bool TryAddFish(Fish fishToFill)
+        public bool TryAddFish(Fish fishToFill, Aquascape aquascape)
         {
             //if (PlantsInAquarium.Count < (PlantsInAquarium.Count + FishInAquarium.Count * 0.75))
             //{
@@ -115,7 +122,7 @@ namespace AquascapeThemeKillerApp.Logic
             // FishType 2 equals Carnivore
             if (fishToFill.FishType.Equals(2))
             {
-                if ((FishInAquarium.Exists(fish => fish.FishType.Equals(1)) || FishInAquarium.Exists(fish => fish.FishType.Equals(3))) && FishInAquarium.Any(fish => fish.FishSize < fishToFill.FishSize))
+                if ((aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(1)) || FishInAquarium.Exists(fish => fish.FishType.Equals(3))) && FishInAquarium.Any(fish => fish.FishSize < fishToFill.FishSize))
                 {
                     return false;
                 }
@@ -123,11 +130,11 @@ namespace AquascapeThemeKillerApp.Logic
             // FishType 1 equals Herbivore
             if (fishToFill.FishType.Equals(1))
             {
-                if (FishInAquarium.Exists(fish => fish.FishType.Equals(2) && fish.FishSize > fishToFill.FishSize))
+                if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(2) && fish.FishSize > fishToFill.FishSize))
                 {
                     return false;
                 }
-                if (PlantsInAquarium.Count != 0)
+                if (aquascape.PlantsInAquarium.Count != 0)
                 {
                     return false;
                 }
@@ -135,13 +142,13 @@ namespace AquascapeThemeKillerApp.Logic
             // FishType 3 equals Normal
             if (fishToFill.FishType.Equals(3))
             {
-                if (FishInAquarium.Exists(fish => fish.FishType.Equals(2) && fish.FishSize > fishToFill.FishSize))
+                if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(2) && fish.FishSize > fishToFill.FishSize))
                 {
                     return false;
                 }
             }
 
-            FishInAquarium.Add(fishToFill);
+            aquascape.FishInAquarium.Add(fishToFill);
             return true;
         }
     }

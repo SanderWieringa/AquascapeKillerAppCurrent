@@ -80,7 +80,8 @@ namespace AquascapeThemeKillerApp.DAL
 
         public List<PlantStruct> GetAllPlantsByAquascape(int aquascapeId)
         {
-            throw new NotImplementedException();
+            PrefillPlantList();
+            return plantStructs;
         }
 
         public List<FishStruct> GetAllFishByAquascape(int aquascapeId)

@@ -20,8 +20,8 @@ namespace AquascapeThemeKillerApp.Tests
             Plant plant = new Plant(1, "Valisneria", 2);
             Fish herbivore = new Fish(1, "Tetra", 1, 1);
 
-            bool tryAddPlant = aquascape.TryAddPlant(plant);
-            bool tryAddFish = aquascape.TryAddFish(herbivore);
+            bool tryAddPlant = aquascape.TryAddPlant(plant, aquascape);
+            bool tryAddFish = aquascape.TryAddFish(herbivore, aquascape);
             
 
             Assert.IsTrue(tryAddPlant);
@@ -35,8 +35,8 @@ namespace AquascapeThemeKillerApp.Tests
             Fish herbivore = new Fish(1, "Tetra", 1, 1);
             Plant plant = new Plant(1, "Valisneria", 2);
 
-            bool tryAddFish = aquascape.TryAddFish(herbivore);
-            bool tryAddPlant = aquascape.TryAddPlant(plant);
+            bool tryAddFish = aquascape.TryAddFish(herbivore, aquascape);
+            bool tryAddPlant = aquascape.TryAddPlant(plant, aquascape);
 
             Assert.IsTrue(tryAddFish);
             Assert.IsFalse(tryAddPlant);
@@ -49,8 +49,8 @@ namespace AquascapeThemeKillerApp.Tests
             Fish normal = new Fish(1, "Tetra", 3, 1);
             Plant plant = new Plant(1, "Valisneria", 2);
 
-            bool tryAddFish = aquascape.TryAddFish(normal);
-            bool tryAddPlant = aquascape.TryAddPlant(plant);
+            bool tryAddFish = aquascape.TryAddFish(normal, aquascape);
+            bool tryAddPlant = aquascape.TryAddPlant(plant, aquascape);
 
             Assert.IsTrue(tryAddFish);
             Assert.IsTrue(tryAddPlant);
@@ -63,8 +63,8 @@ namespace AquascapeThemeKillerApp.Tests
             Plant plant = new Plant(1, "Valisneria", 2);
             Fish normal = new Fish(1, "Tetra", 3, 1);
 
-            bool tryAddPlant = aquascape.TryAddPlant(plant);
-            bool tryAddFish = aquascape.TryAddFish(normal);
+            bool tryAddPlant = aquascape.TryAddPlant(plant, aquascape);
+            bool tryAddFish = aquascape.TryAddFish(normal, aquascape);
             
 
             Assert.IsTrue(tryAddPlant);
@@ -78,8 +78,8 @@ namespace AquascapeThemeKillerApp.Tests
             Fish carnivore = new Fish(1, "Angelfish", 2, 1);
             Plant plant = new Plant(1, "Valisneria", 2);
 
-            bool tryAddFish = aquascape.TryAddFish(carnivore);
-            bool tryAddPlant = aquascape.TryAddPlant(plant);
+            bool tryAddFish = aquascape.TryAddFish(carnivore, aquascape);
+            bool tryAddPlant = aquascape.TryAddPlant(plant, aquascape);
 
 
             Assert.IsTrue(tryAddFish);
@@ -93,8 +93,8 @@ namespace AquascapeThemeKillerApp.Tests
             Plant plant = new Plant(1, "Valisneria", 2);
             Fish carnivore = new Fish(1, "Angelfish", 2, 1);
 
-            bool tryAddPlant = aquascape.TryAddPlant(plant);
-            bool tryAddFish = aquascape.TryAddFish(carnivore);
+            bool tryAddPlant = aquascape.TryAddPlant(plant, aquascape);
+            bool tryAddFish = aquascape.TryAddFish(carnivore, aquascape);
 
             Assert.IsTrue(tryAddPlant);
             Assert.IsTrue(tryAddFish);

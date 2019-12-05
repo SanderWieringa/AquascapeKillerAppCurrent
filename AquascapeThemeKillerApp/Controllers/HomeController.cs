@@ -53,7 +53,7 @@ namespace AquascapeThemeKillerApp.Controllers
         {
             try
             {
-                return View(ConvertToAquascapeModel(id));
+                return View(_aquascapeCollectionLogic.GetAquascapeById(id));
             }
             catch (NullPointerException ex)
             {
@@ -121,6 +121,11 @@ namespace AquascapeThemeKillerApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        //public AquascapeModel ConvertGeneratedAquascapeModel()
+        //{
+        //    return _aquascapeLogic.GenerateAquascape();
+        //}
+
         public List<AquascapeModel> ConvertToAquascapeModelList()
         {
             List<AquascapeModel> aquascapeModelList = new List<AquascapeModel>();
@@ -157,9 +162,9 @@ namespace AquascapeThemeKillerApp.Controllers
             return fishModelList;
         }
 
-        private AquascapeModel ConvertToAquascapeModel(int aquascapeId)
-        {
-            return _aquascapeCollectionLogic.GetAquascapeById(aquascapeId);
-        }
+        //private AquascapeModel ConvertToAquascapeModel(int aquascapeId)
+        //{
+        //    return _aquascapeCollectionLogic.GetAquascapeById(aquascapeId);
+        //}
     }
 }
