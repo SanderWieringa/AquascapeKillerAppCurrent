@@ -15,8 +15,11 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void GetAllPlantsByAquascapeTest_ShouldReturnTwo()
         {
+            User user = new User();
             Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            int actual = aquascape.GetAllPlantsByAquascape(1).Count;
+
+            int aquascapeId = user.GetAquascapeById(1).AquascapeId;
+            int actual = aquascape.GetAllPlantsByAquascape(aquascapeId).Count;
             int expected = 2;
 
             Assert.AreEqual(expected, actual);
@@ -25,8 +28,11 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void GetAllFishesByAquascapeTest_ShouldReturnTwo()
         {
+            User user = new User();
             Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            int actual = aquascape.GetAllFishByAquascape(1).Count;
+
+            int aquascapeId = user.GetAquascapeById(1).AquascapeId;
+            int actual = aquascape.GetAllFishByAquascape(aquascapeId).Count;
             int expected = 2;
 
             Assert.AreEqual(expected, actual);
