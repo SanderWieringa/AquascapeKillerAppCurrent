@@ -12,7 +12,7 @@ namespace AquascapeThemeKillerApp.Tests
     public class UserTest
     {
         private readonly IAquascapeCollectionRepository _aquascapeMemoryCollectionDal = TestFactory.CreateMemoryAquascapeCollectionDAL();
-        private IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDAL();
+        private readonly IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDAL();
         public List<IPlant> PlantsInAquarium { get; } = new List<IPlant>();
         public List<IFish> FishInAquarium { get; } = new List<IFish>();
 
@@ -76,5 +76,6 @@ namespace AquascapeThemeKillerApp.Tests
 
             Assert.AreEqual(2, actual - 1);
         }
+
     }
 }

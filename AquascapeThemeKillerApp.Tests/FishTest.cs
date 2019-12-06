@@ -15,12 +15,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_SmallHerbivorePlusMediumCarnivore_ShouldReturnFalse()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish smallHerbivore = new Fish(1, "Tetra", 1, 1);
-            Fish mediumCarnivore = new Fish(2, "AngelFish", 2, 3);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var smallHerbivore = new Fish(1, "Tetra", 1, 1);
+            var mediumCarnivore = new Fish(2, "AngelFish", 2, 3);
 
-            bool tryAddSmallHerbivore = aquascape.TryAddFish(smallHerbivore, aquascape);
-            bool tryAddMediumCarnivore = aquascape.TryAddFish(mediumCarnivore, aquascape);
+            var tryAddSmallHerbivore = aquascape.TryAddFish(smallHerbivore, aquascape);
+            var tryAddMediumCarnivore = aquascape.TryAddFish(mediumCarnivore, aquascape);
 
             Assert.IsTrue(tryAddSmallHerbivore);
             Assert.IsFalse(tryAddMediumCarnivore);
@@ -29,12 +29,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_MediumHerbivorePlusSmallCarnivore_ShouldReturnTrue()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish mediumHerbivore = new Fish(1, "Tetra", 1, 3);
-            Fish smallCarnivore = new Fish(2, "AngelFish", 2, 1);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var mediumHerbivore = new Fish(1, "Tetra", 1, 3);
+            var smallCarnivore = new Fish(2, "AngelFish", 2, 1);
 
-            bool tryAddMediumHerbivore = aquascape.TryAddFish(mediumHerbivore, aquascape);
-            bool tryAddSmallCarnivore = aquascape.TryAddFish(smallCarnivore, aquascape);
+            var tryAddMediumHerbivore = aquascape.TryAddFish(mediumHerbivore, aquascape);
+            var tryAddSmallCarnivore = aquascape.TryAddFish(smallCarnivore, aquascape);
 
             Assert.IsTrue(tryAddMediumHerbivore);
             Assert.IsTrue(tryAddSmallCarnivore);
@@ -43,12 +43,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_SmallCarnivorePlusMediumHerbivore_ShouldReturnTrue()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish smallCarnivore = new Fish(1, "Angelfish", 2, 1);
-            Fish mediumHerbivore = new Fish(2, "Tetra", 1, 3);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var smallCarnivore = new Fish(1, "Angelfish", 2, 1);
+            var mediumHerbivore = new Fish(2, "Tetra", 1, 3);
 
-            bool tryAddSmallCarnivore = aquascape.TryAddFish(smallCarnivore, aquascape);
-            bool tryAddMediumHerbivore = aquascape.TryAddFish(mediumHerbivore, aquascape);
+            var tryAddSmallCarnivore = aquascape.TryAddFish(smallCarnivore, aquascape);
+            var tryAddMediumHerbivore = aquascape.TryAddFish(mediumHerbivore, aquascape);
 
             Assert.IsTrue(tryAddSmallCarnivore);
             Assert.IsTrue(tryAddMediumHerbivore);
@@ -57,12 +57,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_MediumCarnivorePlusSmallHerbivore_ShouldReturnFalse()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish mediumCarnivore = new Fish(1, "Angelfish", 2, 3);
-            Fish smallHerbivore = new Fish(2, "Tetra", 1, 1);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var mediumCarnivore = new Fish(1, "Angelfish", 2, 3);
+            var smallHerbivore = new Fish(2, "Tetra", 1, 1);
 
-            bool tryAddMediumCarnivore = aquascape.TryAddFish(mediumCarnivore, aquascape);
-            bool tryAddSmallHerbivore = aquascape.TryAddFish(smallHerbivore, aquascape);
+            var tryAddMediumCarnivore = aquascape.TryAddFish(mediumCarnivore, aquascape);
+            var tryAddSmallHerbivore = aquascape.TryAddFish(smallHerbivore, aquascape);
 
             Assert.IsTrue(tryAddMediumCarnivore);
             Assert.IsFalse(tryAddSmallHerbivore);
@@ -71,12 +71,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_SmallHerbivorePlusMediumNormal_ShouldReturnTrue()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish smallHerbivore = new Fish(1, "Tetra", 1, 1);
-            Fish mediumNormal = new Fish(2, "Tetra", 3, 3);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var smallHerbivore = new Fish(1, "Tetra", 1, 1);
+            var mediumNormal = new Fish(2, "Tetra", 3, 3);
 
-            bool tryAddSmallHerbivore = aquascape.TryAddFish(smallHerbivore, aquascape);
-            bool tryAddMediumNormal = aquascape.TryAddFish(mediumNormal, aquascape);
+            var tryAddSmallHerbivore = aquascape.TryAddFish(smallHerbivore, aquascape);
+            var tryAddMediumNormal = aquascape.TryAddFish(mediumNormal, aquascape);
 
             Assert.IsTrue(tryAddSmallHerbivore);
             Assert.IsTrue(tryAddMediumNormal);
@@ -85,12 +85,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_SmallNormalPlusMediumHerbivore_ShouldReturnTrue()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish smallNormal = new Fish(1, "Tetra", 3, 1);
-            Fish mediumHerbivore = new Fish(2, "Tetra", 1, 3);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var smallNormal = new Fish(1, "Tetra", 3, 1);
+            var mediumHerbivore = new Fish(2, "Tetra", 1, 3);
 
-            bool tryAddSmallNormal = aquascape.TryAddFish(smallNormal, aquascape);
-            bool tryAddMediumHerbivore = aquascape.TryAddFish(mediumHerbivore, aquascape);
+            var tryAddSmallNormal = aquascape.TryAddFish(smallNormal, aquascape);
+            var tryAddMediumHerbivore = aquascape.TryAddFish(mediumHerbivore, aquascape);
 
             Assert.IsTrue(tryAddSmallNormal);
             Assert.IsTrue(tryAddMediumHerbivore);
@@ -99,12 +99,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_SmallCarnivorePlusMediumNormal_ShouldReturnTrue()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish smallCarnivore = new Fish(1, "Tetra", 2, 1);
-            Fish mediumNormal = new Fish(2, "AngelFish", 3, 3);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var smallCarnivore = new Fish(1, "Tetra", 2, 1);
+            var mediumNormal = new Fish(2, "AngelFish", 3, 3);
 
-            bool tryAddSmallCarnivore = aquascape.TryAddFish(smallCarnivore, aquascape);
-            bool tryAddMediumNormal = aquascape.TryAddFish(mediumNormal, aquascape);
+            var tryAddSmallCarnivore = aquascape.TryAddFish(smallCarnivore, aquascape);
+            var tryAddMediumNormal = aquascape.TryAddFish(mediumNormal, aquascape);
 
             Assert.IsTrue(tryAddSmallCarnivore);
             Assert.IsTrue(tryAddMediumNormal);
@@ -113,12 +113,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_MediumCarnivorePlusSmallNormal_ShouldReturnFalse()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish mediumCarnivore = new Fish(1, "Tetra", 2, 3);
-            Fish smallNormal = new Fish(2, "AngelFish", 3, 1);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var mediumCarnivore = new Fish(1, "Tetra", 2, 3);
+            var smallNormal = new Fish(2, "AngelFish", 3, 1);
 
-            bool tryAddMediumCarnivore = aquascape.TryAddFish(mediumCarnivore, aquascape);
-            bool tryAddSmallNormal = aquascape.TryAddFish(smallNormal, aquascape);
+            var tryAddMediumCarnivore = aquascape.TryAddFish(mediumCarnivore, aquascape);
+            var tryAddSmallNormal = aquascape.TryAddFish(smallNormal, aquascape);
 
             Assert.IsTrue(tryAddMediumCarnivore);
             Assert.IsFalse(tryAddSmallNormal);
@@ -127,12 +127,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_MediumNormalPlusSmallCarnivore_ShouldReturnTrue()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish mediumNormal = new Fish(1, "Tetra", 3, 3);
-            Fish smallCarnivore = new Fish(2, "AngelFish", 2, 1);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var mediumNormal = new Fish(1, "Tetra", 3, 3);
+            var smallCarnivore = new Fish(2, "AngelFish", 2, 1);
 
-            bool tryAddMediumNormal = aquascape.TryAddFish(mediumNormal, aquascape);
-            bool tryAddSmallCarnivore = aquascape.TryAddFish(smallCarnivore, aquascape);
+            var tryAddMediumNormal = aquascape.TryAddFish(mediumNormal, aquascape);
+            var tryAddSmallCarnivore = aquascape.TryAddFish(smallCarnivore, aquascape);
 
             Assert.IsTrue(tryAddMediumNormal);
             Assert.IsTrue(tryAddSmallCarnivore);
@@ -141,12 +141,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void TryAddFish_SmallNormalPlusMediumCarnivore_ShouldReturnFalse()
         {
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
-            Fish smallNormal = new Fish(1, "Tetra", 3, 1);
-            Fish mediumCarnivore = new Fish(2, "AngelFish", 2, 3);
+            var aquascape = new Aquascape(aquascapeMemoryDAL);
+            var smallNormal = new Fish(1, "Tetra", 3, 1);
+            var mediumCarnivore = new Fish(2, "AngelFish", 2, 3);
 
-            bool tryAddSmallNormal = aquascape.TryAddFish(smallNormal, aquascape);
-            bool tryAddMediumCarnivore = aquascape.TryAddFish(mediumCarnivore, aquascape);
+            var tryAddSmallNormal = aquascape.TryAddFish(smallNormal, aquascape);
+            var tryAddMediumCarnivore = aquascape.TryAddFish(mediumCarnivore, aquascape);
 
             Assert.IsTrue(tryAddSmallNormal);
             Assert.IsFalse(tryAddMediumCarnivore);

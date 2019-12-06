@@ -17,5 +17,15 @@ namespace AquascapeThemeKillerApp.Tests
         {
             return new AquascapeRepository(new AquascapeMemoryContext());
         }
+
+        public static IPlantCollectionRepository CreateMemoryPlantDal()
+        {
+            return new PlantRepository(new PlantMemoryContext());
+        }
+
+        public static IFishCollectionRepository CreateMemoryFishDal()
+        {
+            return new FishRepository(new FishMemoryContext());
+        }
     }
 }

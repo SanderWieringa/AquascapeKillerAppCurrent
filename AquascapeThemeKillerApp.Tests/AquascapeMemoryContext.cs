@@ -58,7 +58,7 @@ namespace AquascapeThemeKillerApp.DAL
         public AquascapeStruct GetAquascapeById(int aquascapeId)
         {
             PrefillAquascapeList();
-            AquascapeStruct aquascapeStruct = _aquascapeStructs.Find(aquascape => aquascape.AquascapeId == aquascapeId);
+            var aquascapeStruct = _aquascapeStructs.Find(aquascape => aquascape.AquascapeId == aquascapeId);
 
             return aquascapeStruct;
         }
@@ -70,38 +70,32 @@ namespace AquascapeThemeKillerApp.DAL
 
         public void RemoveAquascape(int aquascapeId)
         {
-            AquascapeStruct aquascapeStruct = _aquascapeStructs.Find(aquascape => aquascape.AquascapeId == aquascapeId);
+            var aquascapeStruct = _aquascapeStructs.Find(aquascape => aquascape.AquascapeId == aquascapeId);
 
             _aquascapeStructs.Remove(aquascapeStruct);
         }
 
         public void UpdateAquascape(AquascapeStruct aquascapeStruct)
         {
-            AquascapeStruct aquascapeStructToUpdate = _aquascapeStructs.Find(aquascape => aquascape.AquascapeId == aquascapeStruct.AquascapeId);
-        }
-
-        public List<PlantStruct> GetAllPlants()
-        {
-            PrefillPlantList();
-            return _plantStructs;
-        }
-
-        public List<FishStruct> GetAllFish()
-        {
-            PrefillFishList();
-            return _fishStructs;
+            var aquascapeStructToUpdate = _aquascapeStructs.Find(aquascape => aquascape.AquascapeId == aquascapeStruct.AquascapeId);
         }
 
         public List<PlantStruct> GetAllPlantsByAquascape(int aquascapeId)
         {
-            PrefillAquascapePlantList();
-            return _aquascape.PlantsInAquarium;
+            PrefillAquascapeList();
+            var aquascape = _aquascapeStructs.Find(x => x.AquascapeId == aquascapeId);
+            aquascape.PlantsInAquarium.Add(new PlantStruct(1, "Red Tiger Lotus", 3));
+            aquascape.PlantsInAquarium.Add(new PlantStruct(2, "Echinodorus Ozelot", 2));
+            return aquascape.PlantsInAquarium;
         }
 
         public List<FishStruct> GetAllFishByAquascape(int aquascapeId)
         {
-            PrefillAquascapeFishList();
-            return _aquascape.FishInAquarium;
+            PrefillAquascapeList();
+            var aquascape = _aquascapeStructs.Find(x => x.AquascapeId == aquascapeId);
+            aquascape.FishInAquarium.Add(new FishStruct(1, "AngelFish", 2 , 5));
+            aquascape.FishInAquarium.Add(new FishStruct(2, "Tetra", 3, 1));
+            return aquascape.FishInAquarium;
         }
     }
 }

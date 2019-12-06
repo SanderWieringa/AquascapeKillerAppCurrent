@@ -10,17 +10,18 @@ namespace AquascapeThemeKillerApp.Tests
     [TestClass]
     public class AquascapTests
     {
-        private IAquascapeRepository aquascapeMemoryDAL = TestFactory.CreateMemoryAquascapeDAL();
+        private readonly IAquascapeCollectionRepository _aquascapeMemoryCollectionDal = TestFactory.CreateMemoryAquascapeCollectionDAL();
+        private readonly IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDAL();
 
         [TestMethod]
         public void GetAllPlantsByAquascapeTest_ShouldReturnTwo()
         {
-            User user = new User();
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
+            var aquascapeCollection = new User(_aquascapeMemoryCollectionDal);
+            var aquascape = new Aquascape(_aquascapeMemoryDal);
 
-            int aquascapeId = user.GetAquascapeById(1).AquascapeId;
-            int actual = aquascape.GetAllPlantsByAquascape(aquascapeId).Count;
-            int expected = 2;
+            var aquascapeId = aquascapeCollection.GetAquascapeById(1).AquascapeId;
+            var actual = aquascape.GetAllPlantsByAquascape(aquascapeId).Count;
+            const int expected = 2;
 
             Assert.AreEqual(expected, actual);
         }
@@ -28,12 +29,12 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void GetAllFishesByAquascapeTest_ShouldReturnTwo()
         {
-            User user = new User();
-            Aquascape aquascape = new Aquascape(aquascapeMemoryDAL);
+            var aquascapeCollection = new User(_aquascapeMemoryCollectionDal);
+            var aquascape = new Aquascape(_aquascapeMemoryDal);
 
-            int aquascapeId = user.GetAquascapeById(1).AquascapeId;
-            int actual = aquascape.GetAllFishByAquascape(aquascapeId).Count;
-            int expected = 2;
+            var aquascapeId = aquascapeCollection.GetAquascapeById(1).AquascapeId;
+            var actual = aquascape.GetAllFishByAquascape(aquascapeId).Count;
+            const int expected = 2;
 
             Assert.AreEqual(expected, actual);
         }
