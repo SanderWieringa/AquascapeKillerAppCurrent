@@ -59,22 +59,40 @@ namespace AquascapeThemeKillerApp.Logic
 
         public List<IPlant> GetAllPlantsByAquascape(int aquascapeId)
         {
-            foreach (var plant in _aquascapeRepository.GetAllPlantsByAquascape(aquascapeId))
+            try
             {
-                PlantsInAquarium.Add(new Plant(plant));
-            }
+                foreach (var plant in _aquascapeRepository.GetAllPlantsByAquascape(aquascapeId))
+                {
+                    PlantsInAquarium.Add(new Plant(plant));
+                }
 
-            return PlantsInAquarium;
+                return PlantsInAquarium;
+            }
+            catch (Exception e)
+            {
+                //logBuilder("GetAllPlantsByAquascape", "Exception", "", e.Message, "");
+
+                return new List<IPlant>();
+            }
+            
         }
 
         public List<IFish> GetAllFishByAquascape(int aquascapeId)
         {
-            foreach (var fish in _aquascapeRepository.GetAllFishByAquascape(aquascapeId))
+            try
             {
-                FishInAquarium.Add(new Fish(fish));
-            }
+                foreach (var fish in _aquascapeRepository.GetAllFishByAquascape(aquascapeId))
+                {
+                    FishInAquarium.Add(new Fish(fish));
+                }
 
-            return FishInAquarium;
+                return FishInAquarium;
+            }
+            catch (Exception e)
+            {
+                return new List<IFish>();
+            }
+            
         }
 
         public AquascapeModel GenerateAquascape()

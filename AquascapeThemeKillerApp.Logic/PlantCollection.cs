@@ -14,12 +14,21 @@ namespace AquascapeThemeKillerApp.Logic
         public List<IPlant> GetAllPlants()
         {
             List<IPlant> plantList = new List<IPlant>();
-            foreach (var plant in _plantRepository.GetAllPlants())
-            {
-                plantList.Add(new Plant(plant));
-            }
 
-            return plantList;
+            try
+            {
+                foreach (var plant in _plantRepository.GetAllPlants())
+                {
+                    plantList.Add(new Plant(plant));
+                }
+
+                return plantList;
+            }
+            catch (Exception e)
+            {
+                return new List<IPlant>();
+            }
+            
         }
     }
 }

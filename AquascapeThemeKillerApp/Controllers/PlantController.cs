@@ -12,11 +12,6 @@ namespace AquascapeThemeKillerApp.Controllers
     {
         private readonly IPlantCollection _plantCollectionLogic = PlantLogicFactory.CreatePlantCollection();
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult GetAllPlants()
         {
             return View(ConvertToPlantModelList());

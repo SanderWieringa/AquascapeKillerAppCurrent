@@ -1,8 +1,10 @@
 ﻿using AquascapeThemeKillerApp.DAL_Factory;
 using AquascapeThemeKillerApp.DAL_Interfaces;
 using AquascapeThemeKillerApp.Logic_Interfaces;
+using NLog.Fluent;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AquascapeThemeKillerApp.Logic
@@ -26,7 +28,7 @@ namespace AquascapeThemeKillerApp.Logic
 
         public User(IAquascapeCollectionRepository userRepository)
         {
-            this._userRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public User()
@@ -36,12 +38,14 @@ namespace AquascapeThemeKillerApp.Logic
 
         private AquascapeModel ConvertToAquascapeModel(AquascapeStruct aquascapeStruct)
         {
-            var aquascapeModel = new AquascapeModel();
-            aquascapeModel.FishInAquarium = ConvertFishStructList(aquascapeStruct.FishInAquarium);
-            aquascapeModel.PlantsInAquarium = ConvertPlantStructList(aquascapeStruct.PlantsInAquarium);
-            aquascapeModel.AquascapeId = aquascapeStruct.AquascapeId;
-            aquascapeModel.Name = aquascapeStruct.Name;
-            aquascapeModel.Difficulty = aquascapeStruct.AquascapeId;
+            var aquascapeModel = new AquascapeModel
+            {
+                FishInAquarium = ConvertFishStructList(aquascapeStruct.FishInAquarium),
+                PlantsInAquarium = ConvertPlantStructList(aquascapeStruct.PlantsInAquarium),
+                AquascapeId = aquascapeStruct.AquascapeId,
+                Name = aquascapeStruct.Name,
+                Difficulty = aquascapeStruct.AquascapeId
+            };
 
             return aquascapeModel;
         }
@@ -50,24 +54,41 @@ namespace AquascapeThemeKillerApp.Logic
         {
             List<IPlant> plantList = new List<IPlant>();
 
-            foreach (var plant in plantStructList)
+            try
             {
-                plantList.Add(new Plant(plant));
-            }
+                foreach (var plant in plantStructList)
+                {
+                    plantList.Add(new Plant(plant));
+                }
 
-            return plantList;
+                return plantList;
+            }
+            catch (Exception e)
+            {
+                return new List<IPlant>();
+            }
+                
         }
 
         private List<IFish> ConvertFishStructList(List<FishStruct> fishStructList)
         {
             List<IFish> fishList = new List<IFish>();
 
-            foreach (var fish in fishStructList)
+            try
             {
-                fishList.Add(new Fish(fish));
+                foreach (var fish in fishStructList)
+                {
+                    fishList.Add(new Fish(fish));
+                }
+           
+                return fishList;
             }
+            catch (Exception e)
+            {
 
-            return fishList;
+                return new List<IFish>();
+            }
+            
         }
 
         public void RemoveAquascape(int aquascapeId)
@@ -86,11 +107,21 @@ namespace AquascapeThemeKillerApp.Logic
         {
             List<IAquascape> aquascapeList = new List<IAquascape>();
 
-            foreach (var aquascape in _userRepository.GetAllAquascapes())
+            try
             {
-                aquascapeList.Add(new Aquascape(aquascape));
+                foreach (var aquascape in _userRepository.GetAllAquascapes())
+                {
+                    aquascapeList.Add(new Aquascape(aquascape));
+                }
+
+                return aquascapeList;
             }
-            return aquascapeList;
+            catch (Exception e)
+            {
+                
+                return new List<IAquascape>();
+            }
+            
         }
 
         public AquascapeModel GetAquascapeById(int aquascapeId)

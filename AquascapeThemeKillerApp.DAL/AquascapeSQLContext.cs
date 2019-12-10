@@ -21,6 +21,9 @@ namespace AquascapeThemeKillerApp.DAL
 
     public class AquascapeSQLContext : IAquascapeContext
     {
+        MyCultureComparer myComparer = new MyCultureComparer();
+
+        private AquascapeStruct AquascapeStruct;
         public List<PlantStruct> PlantsInAquarium { get; } = new List<PlantStruct>();
         public List<FishStruct> FishInAquarium { get; } = new List<FishStruct>();
         public List<AquascapeStruct> AquascapeStructList { get; } = new List<AquascapeStruct>();
@@ -37,7 +40,7 @@ namespace AquascapeThemeKillerApp.DAL
             using (GetConnection())
             {
                 _conn.Open();
-                var cmd = new SqlCommand("SP_UpdateAquascape", _conn) {CommandType = CommandType.StoredProcedure};
+                var cmd = new SqlCommand("SP_UpdateAquascape", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.AddWithValue("@aquascapeId", aquascapeStruct.AquascapeId);
                 cmd.Parameters.AddWithValue("@name", aquascapeStruct.Name);
                 cmd.Parameters.AddWithValue("@difficulty", aquascapeStruct.Difficulty);
@@ -51,7 +54,7 @@ namespace AquascapeThemeKillerApp.DAL
             using (GetConnection())
             {
                 _conn.Open();
-                var cmd = new SqlCommand("SP_RemoveAquascape", _conn) {CommandType = CommandType.StoredProcedure};
+                var cmd = new SqlCommand("SP_RemoveAquascape", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
             }
         }
@@ -61,7 +64,7 @@ namespace AquascapeThemeKillerApp.DAL
             using (GetConnection())
             {
                 _conn.Open();
-                var cmd = new SqlCommand("SP_AddAquascape", _conn) {CommandType = CommandType.StoredProcedure};
+                var cmd = new SqlCommand("SP_AddAquascape", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.AddWithValue("@name", aquascapeStruct.Name);
                 cmd.Parameters.AddWithValue("@difficulty", aquascapeStruct.Difficulty);
                 cmd.ExecuteNonQuery();
@@ -74,7 +77,7 @@ namespace AquascapeThemeKillerApp.DAL
             using (GetConnection())
             {
                 _conn.Open();
-                var cmd = new SqlCommand("SP_GetAllAquascape", _conn) {CommandType = CommandType.StoredProcedure};
+                var cmd = new SqlCommand("SP_GetAllAquascape", _conn) { CommandType = CommandType.StoredProcedure };
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -83,7 +86,7 @@ namespace AquascapeThemeKillerApp.DAL
                     }
                 }
             }
-            return AquascapeStructList; 
+            return AquascapeStructList;
         }
 
         //public AquascapeStruct GetAquascapeById(int aquascapeId)
@@ -94,44 +97,38 @@ namespace AquascapeThemeKillerApp.DAL
 
         public AquascapeStruct GetAquascapeById(int aquascapeId)
         {
-            
+            var aquascapeRead = false;
+
             using (GetConnection())
             {
-                //try
-                //{
-                    _conn.Open();
-                    var cmd = new SqlCommand("SP_GetAquascapeById", _conn) {CommandType = CommandType.StoredProcedure};
-                    cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
-                    using (var reader = cmd.ExecuteReader())
+                _conn.Open();
+                var cmd = new SqlCommand("SP_GetAquascapeById", _conn) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        reader.Read();
-                    
-                        //var aquascapeStruct = new AquascapeStruct();
-                        
+                        if (!PlantsInAquarium.Exists(plant => plant.PlantId == reader.GetInt32(7)))
+                        {
+                            PlantsInAquarium.Add(new PlantStruct(reader.GetInt32(7), reader.GetString(8), reader.GetInt32(9)));
+                        }
 
-                        FishInAquarium.Add(new FishStruct(reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5), reader.GetInt32(6)));
-                        PlantsInAquarium.Add(new PlantStruct(reader.GetInt32(7), reader.GetString(8), reader.GetInt32(9)));
+                        if (!FishInAquarium.Exists(fish => fish.FishId == reader.GetInt32(3)))
+                        {
+                            FishInAquarium.Add(new FishStruct(reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5), reader.GetInt32(6)));
+                        }
 
-                        return new AquascapeStruct(FishInAquarium, PlantsInAquarium, reader.GetInt32(0),
-                            reader.GetString(1), reader.GetInt32(2));
+                        if (!aquascapeRead)
+                        {
+                            AquascapeStruct = new AquascapeStruct(FishInAquarium, PlantsInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
+                            aquascapeRead = true;
+                        }
                     }
-                //}
-                //catch(Exception ex)
-                //{
-                //    Console.WriteLine("Something went wrong", ex);
-
-                //    if (FishInAquarium.Equals(null))
-                //    {
-
-                //    }
-
-                //    if (PlantsInAquarium.Equals(null))
-                //    {
-                        
-                //    }
-                //}
+                }
             }
-        } 
+            return AquascapeStruct;
+        }
 
         public AquascapeStruct GetAquascapeByStyle()
         {
@@ -143,7 +140,7 @@ namespace AquascapeThemeKillerApp.DAL
             using (GetConnection())
             {
                 _conn.Open();
-                var cmd = new SqlCommand("SP_GetAllPlantsInAquascape", _conn) {CommandType = CommandType.StoredProcedure};
+                var cmd = new SqlCommand("SP_GetAllPlantsInAquascape", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -161,7 +158,7 @@ namespace AquascapeThemeKillerApp.DAL
             using (GetConnection())
             {
                 _conn.Open();
-                var cmd = new SqlCommand("[SP_GetAllFishInAquascape]", _conn) {CommandType = CommandType.StoredProcedure};
+                var cmd = new SqlCommand("[SP_GetAllFishInAquascape]", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
                 using (var reader = cmd.ExecuteReader())
@@ -171,8 +168,8 @@ namespace AquascapeThemeKillerApp.DAL
                         FishInAquarium.Add(new FishStruct(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3)));
                     }
                 }
-                return FishInAquarium;
             }
+            return FishInAquarium;
         }
     }
 }

@@ -58,14 +58,14 @@ namespace AquascapeThemeKillerApp.Controllers
             catch (NullPointerException ex)
             {
                 Console.WriteLine(ex);
-                TempData["error"] = "Something went wrong!";
-                return RedirectToAction("AquascapeDetails");
+                TempData["Error"] = "Something went wrong!";
+                return View("Error");
             }
             catch (InvalidOperationException ex)
             {
                 Console.WriteLine(ex);
-                TempData["error"] = "Something went wrong!";
-                return RedirectToAction("AquascapeDetails");
+                TempData["Error"] = "Something went wrong!";
+                return View("Error");
             }
         }
 

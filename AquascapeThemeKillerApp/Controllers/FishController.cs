@@ -12,11 +12,6 @@ namespace AquascapeThemeKillerApp.Controllers
     {
         private readonly IFishCollection _fishCollectionLogic = FishLogicFactory.CreateFishCollection();
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult GetAllFishes()
         {
             return View(ConvertToFishModelList());
