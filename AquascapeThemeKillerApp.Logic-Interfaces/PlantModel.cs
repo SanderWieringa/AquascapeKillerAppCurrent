@@ -12,9 +12,7 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
 
         public PlantModel(IPlant plant) : this(plant.PlantId, plant.PlantName, plant.Difficulty)
         {
-            PlantId = plant.PlantId;
-            PlantName = plant.PlantName;
-            Difficulty = plant.Difficulty;
+            
         }
 
         public PlantModel(int plantId, string plantName, int difficulty)

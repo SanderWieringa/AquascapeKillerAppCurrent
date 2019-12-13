@@ -11,12 +11,9 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
         public int FishType { get; set; }
         public int FishSize { get; set; }
 
-        public FishModel(IFish fish)
+        public FishModel(IFish fish) : this(fish.FishId, fish.FishName, fish.FishType, fish.FishSize)
         {
-            FishId = fish.FishId;
-            FishName = fish.FishName;
-            FishType = fish.FishType;
-            FishSize = fish.FishSize;
+            
         }
 
         public FishModel(int fishId, string fishName, int fishType, int fishSize)

@@ -13,7 +13,7 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
         int Difficulty { get; set; }
 
         void UpdateAquascape(AquascapeModel aquascapeModel);
-        AquascapeModel GenerateAquascape();
+        //AquascapeModel GenerateAquascape(List<PlantModel> plantList, List<FishModel> fishList);
         List<IPlant> GetAllPlantsByAquascape(int aquascapeId);
         List<IFish> GetAllFishByAquascape(int aquascapeId);
     }

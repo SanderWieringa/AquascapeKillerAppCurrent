@@ -33,20 +33,19 @@
 </div>
 
 <table class="table">
-    @*<thead>
+    <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.aquascapeId)
+                @Html.Label("PlantId")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.Label("PlantName")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Difficulty)
+                @Html.Label("Difficulty")
             </th>
-            <th></th>
         </tr>
-    </thead>*@
+    </thead>
     <tbody>
         @foreach (var item in Model.PlantsInAquarium)
         {
@@ -71,20 +70,22 @@
 </table>
 
 <table class="table">
-    @*<thead>
+    <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.aquascapeId)
+                @Html.Label("FishId")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.Label("FishName")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Difficulty)
+                @Html.Label("FishType")
             </th>
-            <th></th>
+            <th>
+                @Html.Label("FishSize")
+            </th>
         </tr>
-    </thead>*@
+    </thead>
     <tbody>
         @foreach (var item in Model.FishInAquarium)
         {

@@ -16,6 +16,7 @@ namespace AquascapeThemeKillerApp.Controllers
     {
         private readonly IAquascapeCollection _aquascapeCollectionLogic = AquascapeLogicFactory.CreateAquascapeCollection();
         private readonly IAquascape _aquascapeLogic = AquascapeLogicFactory.CreateAquascape();
+        private readonly IManager _managerLogic = ManagerLogicFactory.CreateManager();
 
         public IActionResult Index()
         {
@@ -74,7 +75,7 @@ namespace AquascapeThemeKillerApp.Controllers
         {
             try
             {
-                return View(_aquascapeLogic.GenerateAquascape());
+                return View(_managerLogic.GenerateAquascape());
             }
             catch
             {
