@@ -11,6 +11,28 @@ namespace AquascapeThemeKillerApp.Logic
     {
         private readonly IFishCollectionRepository _fishRepository = FishDalFactory.CreateFishCollectionRepository();
 
+        public FishCollection()
+        {
+            
+        }
+
+        public FishCollection(IFishCollectionRepository fishRepository)
+        {
+            _fishRepository = fishRepository;
+        }
+
+        public void AddFish(FishModel fishModel)
+        {
+            var fish = new Fish(fishModel);
+
+            _fishRepository.AddFish(Convert(fish));
+        }
+
+        private FishStruct Convert(IFish fish)
+        {
+            return new FishStruct(fish.FishId, fish.FishName, fish.FishType, fish.FishSize);
+        }
+
         public List<IFish> GetAllFishes()
         {
             List<IFish> fishList = new List<IFish>();

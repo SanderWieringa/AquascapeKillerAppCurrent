@@ -100,7 +100,7 @@ namespace AquascapeThemeKillerApp.Logic
         {
             var aquaScape = new Aquascape(aquascapeModel);
 
-            _userRepository.AddAquascape((aquaScape).Convert(aquaScape));
+            _userRepository.AddAquascape(aquaScape.Convert(aquaScape));
         }
 
         public List<IAquascape> GetAllAquascapes()

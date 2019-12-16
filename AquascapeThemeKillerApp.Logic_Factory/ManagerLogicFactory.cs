@@ -8,9 +8,9 @@ namespace AquascapeThemeKillerApp.Logic_Factory
 {
     public static class ManagerLogicFactory
     {
-        public static IManager CreateManager()
+        public static IAquascapeGenerator CreateManager()
         {
-            return new Manager();
+            return new AquascapeGenerator();
         }
     }
 }

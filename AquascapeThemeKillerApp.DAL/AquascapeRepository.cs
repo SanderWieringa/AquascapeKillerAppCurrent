@@ -7,32 +7,32 @@ namespace AquascapeThemeKillerApp.DAL
 {
     public class AquascapeRepository : IAquascapeRepository, IAquascapeCollectionRepository
     {
-        private IAquascapeContext context;
+        private IAquascapeContext _context;
 
         public AquascapeRepository(IAquascapeContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public void UpdateAquascape(AquascapeStruct aquascapeStruct)
         {
-            context.UpdateAquascape(aquascapeStruct);
+            _context.UpdateAquascape(aquascapeStruct);
         }
 
         public void RemoveAquascape(int aquascapeId)
         {
-            context.RemoveAquascape(aquascapeId);
+            _context.RemoveAquascape(aquascapeId);
         }
 
         public void AddAquascape(AquascapeStruct aquascapeStruct)
         {
-            context.AddAquascape(aquascapeStruct);
+            _context.AddAquascape(aquascapeStruct);
         }
 
         public List<AquascapeStruct> GetAllAquascapes()
         {
             List<AquascapeStruct> list = new List<AquascapeStruct>();
-            foreach (AquascapeStruct aquascape in context.GetAllAquascapes())
+            foreach (AquascapeStruct aquascape in _context.GetAllAquascapes())
             {
                 list.Add(aquascape);
             }
@@ -42,7 +42,7 @@ namespace AquascapeThemeKillerApp.DAL
 
         public AquascapeStruct GetAquascapeById(int aquascapeId)
         {
-            return context.GetAquascapeById(aquascapeId);
+            return _context.GetAquascapeById(aquascapeId);
         }
 
         public AquascapeStruct GetAquascapeByStyle()
@@ -53,7 +53,7 @@ namespace AquascapeThemeKillerApp.DAL
         public List<PlantStruct> GetAllPlantsByAquascape(int aquascapeId)
         {
             List<PlantStruct> list = new List<PlantStruct>();
-            foreach (PlantStruct plant in context.GetAllPlantsByAquascape(aquascapeId))
+            foreach (PlantStruct plant in _context.GetAllPlantsByAquascape(aquascapeId))
             {
                 list.Add(plant);
             }
@@ -63,7 +63,7 @@ namespace AquascapeThemeKillerApp.DAL
         public List<FishStruct> GetAllFishByAquascape(int aquascapeId)
         {
             List<FishStruct> list = new List<FishStruct>();
-            foreach (FishStruct fish in context.GetAllFishByAquascape(aquascapeId))
+            foreach (FishStruct fish in _context.GetAllFishByAquascape(aquascapeId))
             {
                 list.Add(fish);
             }

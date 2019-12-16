@@ -16,7 +16,7 @@ namespace AquascapeThemeKillerApp.Controllers
     {
         private readonly IAquascapeCollection _aquascapeCollectionLogic = AquascapeLogicFactory.CreateAquascapeCollection();
         private readonly IAquascape _aquascapeLogic = AquascapeLogicFactory.CreateAquascape();
-        private readonly IManager _managerLogic = ManagerLogicFactory.CreateManager();
+        private readonly IAquascapeGenerator _managerLogic = ManagerLogicFactory.CreateManager();
 
         public IActionResult Index()
         {

@@ -10,7 +10,7 @@ namespace AquascapeThemeKillerApp.Tests
     [TestClass]
     public class PlantTests
     {
-        Manager manager = new Manager();
+        AquascapeGenerator manager = new AquascapeGenerator();
 
         [TestMethod]
         public void TryAddPlant_PlantPlusHerbivore_ShouldReturnFalse()

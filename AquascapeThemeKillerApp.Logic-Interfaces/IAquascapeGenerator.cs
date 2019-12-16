@@ -4,8 +4,8 @@ using System.Text;
 
 namespace AquascapeThemeKillerApp.Logic_Interfaces
 {
-    public interface IManager
+    public interface IAquascapeGenerator
     {
-        AquascapeModel GenerateAquascape(List<PlantModel> allPlants, List<FishModel> allFishModels);
+        AquascapeModel GenerateAquascape();
     }
 }

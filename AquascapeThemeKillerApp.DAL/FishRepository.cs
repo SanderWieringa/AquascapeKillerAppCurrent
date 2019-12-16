@@ -14,6 +14,11 @@ namespace AquascapeThemeKillerApp.DAL
             _context = context;
         }
 
+        public void AddFish(FishStruct fishStruct)
+        {
+            _context.AddFish(fishStruct);
+        }
+
         public List<FishStruct> GetAllFishes()
         {
             List<FishStruct> fishList = new List<FishStruct>();

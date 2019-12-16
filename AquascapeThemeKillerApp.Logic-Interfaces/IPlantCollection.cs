@@ -7,5 +7,6 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
     public interface IPlantCollection
     {
         List<IPlant> GetAllPlants();
+        void AddPlant(PlantModel plantModel);
     }
 }

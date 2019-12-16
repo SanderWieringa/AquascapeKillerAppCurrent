@@ -11,6 +11,28 @@ namespace AquascapeThemeKillerApp.Logic
     {
         private readonly IPlantCollectionRepository _plantRepository = PlantDalFactory.CreatePlantCollectionRepository();
 
+        public PlantCollection()
+        {
+            
+        }
+
+        public PlantCollection(IPlantCollectionRepository plantRepository)
+        {
+            _plantRepository = plantRepository;
+        }
+
+        public void AddPlant(PlantModel plantModel)
+        {
+            var plant = new Plant(plantModel);
+
+            _plantRepository.Add(Convert(plant));
+        }
+
+        private PlantStruct Convert(IPlant plant)
+        {
+            return new PlantStruct(plant.PlantId, plant.PlantName, plant.Difficulty);
+        }
+
         public List<IPlant> GetAllPlants()
         {
             List<IPlant> plantList = new List<IPlant>();

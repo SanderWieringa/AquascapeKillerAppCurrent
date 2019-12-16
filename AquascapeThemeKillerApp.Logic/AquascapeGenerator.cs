@@ -8,78 +8,35 @@ using AquascapeThemeKillerApp.Logic_Interfaces;
 
 namespace AquascapeThemeKillerApp.Logic
 {
-    public class Manager : IManager
-    {
-        private readonly IPlantCollectionRepository _plantCollectionRepository = PlantDalFactory.CreatePlantCollectionRepository();
-        private readonly IFishCollectionRepository _fishCollectionRepository = FishDalFactory.CreateFishCollectionRepository();
-
-        private List<PlantModel> _allPlants;
-        private List<FishModel> _allFishes;
-
-        private List<PlantModel> GetAllPlants()
+    public class AquascapeGenerator : IAquascapeGenerator
+    { 
+        private Plant ConvertPlant(IPlant plant)
         {
-            try
-            {
-                _allPlants = new List<PlantModel>();
-
-                foreach (var plant in _plantCollectionRepository.GetAllPlants())
-                {
-                    _allPlants.Add(convertToPlantModel(plant));
-                }
-
-                return _allPlants;
-            }
-            catch (Exception e)
-            {
-                return new List<PlantModel>();
-            }
-            
+            return new Plant(plant.PlantId, plant.PlantName, plant.Difficulty);
         }
 
-        private List<FishModel> GetAllFishes()
+        private Fish ConvertFish(IFish fish)
         {
-            try
-            {
-                _allFishes = new List<FishModel>();
-
-                foreach (var fish in _fishCollectionRepository.GetAllFishes())
-                {
-                    _allFishes.Add(ConvertToFishModel(fish));
-                }
-
-                return _allFishes;
-            }
-            catch (Exception e)
-            {
-                return new List<FishModel>();
-            }
+            return new Fish(fish.FishId, fish.FishName, fish.FishType, fish.FishSize);
         }
 
-        private PlantModel convertToPlantModel(PlantStruct plantStruct)
+        public AquascapeModel GenerateAquascape()
         {
-            return new PlantModel(plantStruct.PlantId, plantStruct.PlantName, plantStruct.Difficulty);
-        }
-
-        private FishModel ConvertToFishModel(FishStruct fishStruct)
-        {
-            return new FishModel(fishStruct.FishId, fishStruct.FishName, fishStruct.FishType, fishStruct.FishSize);
-        }
-
-        public AquascapeModel GenerateAquascape(List<PlantModel> allPlants, List<FishModel> allFishes)
-        {
+            PlantCollection plantCollection = new PlantCollection();
+            FishCollection fishCollection = new FishCollection();
             var aquascape = new Aquascape();
 
-            foreach (var plant in allPlants)
+            foreach (var plant in plantCollection.GetAllPlants())
             {
-                foreach (var fish in allFishes)
+                foreach (var fish in fishCollection.GetAllFishes())
                 {
                     if (aquascape.PlantsInAquarium.Count < (aquascape.PlantsInAquarium.Count + aquascape.FishInAquarium.Count * 0.75))
                     {
-                        TryAddPlant(new Plant(plant), aquascape);
+                        TryAddPlant(ConvertPlant(plant), aquascape);
                         break;
                     }
 
-                    TryAddFish(new Fish(fish), aquascape);
+                    TryAddFish(ConvertFish(fish), aquascape);
                 }
             }
 

@@ -34,5 +34,19 @@ namespace AquascapeThemeKillerApp.DAL
             }
             return FishStructList;
         }
+
+        public void AddFish(FishStruct fishStruct)
+        {
+            using (GetConnection())
+            {
+                _conn.Open();
+                var cmd = new SqlCommand("SP_AddFish", _conn) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("@name", fishStruct.FishName);
+                cmd.Parameters.AddWithValue("@fishType", fishStruct.FishType);
+                cmd.Parameters.AddWithValue("@fishSize", fishStruct.FishSize);
+                cmd.ExecuteNonQuery();
+                _conn.Close();
+            }
+        }
     }
 }

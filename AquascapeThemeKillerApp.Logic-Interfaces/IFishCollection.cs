@@ -7,5 +7,6 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
     public interface IFishCollection
     {
         List<IFish> GetAllFishes();
+        void AddFish(FishModel fishModel);
     }
 }

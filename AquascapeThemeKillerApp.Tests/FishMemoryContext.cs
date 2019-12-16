@@ -22,5 +22,10 @@ namespace AquascapeThemeKillerApp.Tests
             PrefillFishList();
             return _fishStructs;
         }
+
+        public void AddFish(FishStruct fishStruct)
+        {
+            _fishStructs.Add(fishStruct);
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace AquascapeThemeKillerApp.DAL_Interfaces
     public interface IFishCollectionRepository
     {
         List<FishStruct> GetAllFishes();
+        void AddFish(FishStruct fishStruct);
     }
 }

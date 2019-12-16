@@ -7,5 +7,6 @@ namespace AquascapeThemeKillerApp.DAL_Interfaces
     public interface IPlantCollectionRepository
     {
         List<PlantStruct> GetAllPlants();
+        void Add(PlantStruct plantStruct);
     }
 }

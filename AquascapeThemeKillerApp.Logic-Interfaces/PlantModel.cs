@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AquascapeThemeKillerApp.Logic_Interfaces
 {
-    public class PlantModel
+    public class PlantModel : IPlant
     {
         public int PlantId { get; set; }
         public string PlantName { get; set; }
