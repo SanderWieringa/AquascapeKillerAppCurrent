@@ -16,6 +16,8 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void GetAllFishesTest()
         {
+            _fishMemoryCollectionDal.AddFish(new FishStruct(1, "Tetra", 3, 3));
+            _fishMemoryCollectionDal.AddFish(new FishStruct(2, "Angel Fish", 2, 3));
             var actual = _fishMemoryCollectionDal.GetAllFishes().Count;
             const int expected = 2;
 

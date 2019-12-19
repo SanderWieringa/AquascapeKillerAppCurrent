@@ -9,6 +9,7 @@ using AquascapeThemeKillerApp.Logic_Interfaces;
 using AquascapeThemeKillerApp.Logic_Factory;
 using java.lang;
 using Amazon.OpsWorks.Model;
+using Exception = java.lang.Exception;
 
 namespace AquascapeThemeKillerApp.Controllers
 {
@@ -16,7 +17,7 @@ namespace AquascapeThemeKillerApp.Controllers
     {
         private readonly IAquascapeCollection _aquascapeCollectionLogic = AquascapeLogicFactory.CreateAquascapeCollection();
         private readonly IAquascape _aquascapeLogic = AquascapeLogicFactory.CreateAquascape();
-        private readonly IAquascapeGenerator _managerLogic = ManagerLogicFactory.CreateManager();
+        private readonly IAquascapeGenerator _aquascapeGeneratorLogic = AquascapeGeneratorLogicFactory.CreateAquascapeGenerator();
 
         public IActionResult Index()
         {
@@ -56,15 +57,15 @@ namespace AquascapeThemeKillerApp.Controllers
             {
                 return View(_aquascapeCollectionLogic.GetAquascapeById(id));
             }
-            catch (NullPointerException ex)
+            catch (NullPointerException e)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(e);
                 TempData["Error"] = "Something went wrong!";
                 return View("Error");
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException e)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(e);
                 TempData["Error"] = "Something went wrong!";
                 return View("Error");
             }
@@ -75,11 +76,12 @@ namespace AquascapeThemeKillerApp.Controllers
         {
             try
             {
-                return View(_managerLogic.GenerateAquascape());
+                return View(_aquascapeGeneratorLogic.GenerateAquascape());
             }
-            catch
+            catch (Exception e)
             {
-                return default;
+                Console.WriteLine(e);
+                return View("Error");
             }
         }
 
@@ -90,9 +92,10 @@ namespace AquascapeThemeKillerApp.Controllers
             {
                 return View(ConvertToAquascapeModelList());
             }
-            catch
+            catch (Exception e)
             {
-                return default;
+                Console.WriteLine(e);
+                return View("Error");
             }
         }
 

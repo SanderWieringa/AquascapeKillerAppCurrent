@@ -52,5 +52,10 @@ namespace AquascapeThemeKillerApp.Logic
             }
             
         }
+
+        public void DeleteFish(int fishId)
+        {
+            _fishRepository.DeleteFish(fishId);
+        }
     }
 }

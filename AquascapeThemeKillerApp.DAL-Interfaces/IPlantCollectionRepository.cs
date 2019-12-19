@@ -8,5 +8,6 @@ namespace AquascapeThemeKillerApp.DAL_Interfaces
     {
         List<PlantStruct> GetAllPlants();
         void Add(PlantStruct plantStruct);
+        void DeletePlant(int plantId);
     }
 }

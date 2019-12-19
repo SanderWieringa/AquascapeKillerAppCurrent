@@ -48,5 +48,17 @@ namespace AquascapeThemeKillerApp.DAL
                 _conn.Close();
             }
         }
+
+        public void DeleteFish(int fishId)
+        {
+            using (GetConnection())
+            {
+                _conn.Open();
+                var cmd = new SqlCommand("SP_RemoveFish", _conn) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("@fishId", fishId);
+                cmd.ExecuteNonQuery();
+                _conn.Close();
+            }
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
     {
         List<IFish> GetAllFishes();
         void AddFish(FishModel fishModel);
+        void DeleteFish(int fishId);
     }
 }

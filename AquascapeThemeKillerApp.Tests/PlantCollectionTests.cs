@@ -14,6 +14,8 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void GetAllPlantsTest_ShouldReturnTwo()
         {
+            _plantCollectionRepository.Add(new PlantStruct(1, "Echinodorus Ozelot", 2));
+            _plantCollectionRepository.Add(new PlantStruct(2, "Red Tiger Lotus", 3));
             var actual = _plantCollectionRepository.GetAllPlants().Count;
             const int expected = 2;
 

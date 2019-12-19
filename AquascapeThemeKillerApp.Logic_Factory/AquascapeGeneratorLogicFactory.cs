@@ -6,9 +6,9 @@ using AquascapeThemeKillerApp.Logic_Interfaces;
 
 namespace AquascapeThemeKillerApp.Logic_Factory
 {
-    public static class ManagerLogicFactory
+    public static class AquascapeGeneratorLogicFactory
     {
-        public static IAquascapeGenerator CreateManager()
+        public static IAquascapeGenerator CreateAquascapeGenerator()
         {
             return new AquascapeGenerator();
         }

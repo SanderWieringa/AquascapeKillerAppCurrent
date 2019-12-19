@@ -10,7 +10,7 @@ namespace AquascapeThemeKillerApp.Tests
     [TestClass]
     public class FishTest
     {
-        AquascapeGenerator manager = new AquascapeGenerator();
+        AquascapeGenerator generator = new AquascapeGenerator();
 
         [TestMethod]
         public void TryAddFish_SmallHerbivorePlusMediumCarnivore_ShouldReturnFalse()
@@ -19,8 +19,8 @@ namespace AquascapeThemeKillerApp.Tests
             var smallHerbivore = new Fish(1, "Tetra", 1, 1);
             var mediumCarnivore = new Fish(2, "AngelFish", 2, 3);
 
-            var tryAddSmallHerbivore = manager.TryAddFish(smallHerbivore, aquascape);
-            var tryAddMediumCarnivore = manager.TryAddFish(mediumCarnivore, aquascape);
+            var tryAddSmallHerbivore = generator.TryAddFish(smallHerbivore, aquascape);
+            var tryAddMediumCarnivore = generator.TryAddFish(mediumCarnivore, aquascape);
 
             Assert.IsTrue(tryAddSmallHerbivore);
             Assert.IsFalse(tryAddMediumCarnivore);
@@ -33,8 +33,8 @@ namespace AquascapeThemeKillerApp.Tests
             var mediumHerbivore = new Fish(1, "Tetra", 1, 3);
             var smallCarnivore = new Fish(2, "AngelFish", 2, 1);
 
-            var tryAddMediumHerbivore = manager.TryAddFish(mediumHerbivore, aquascape);
-            var tryAddSmallCarnivore = manager.TryAddFish(smallCarnivore, aquascape);
+            var tryAddMediumHerbivore = generator.TryAddFish(mediumHerbivore, aquascape);
+            var tryAddSmallCarnivore = generator.TryAddFish(smallCarnivore, aquascape);
 
             Assert.IsTrue(tryAddMediumHerbivore);
             Assert.IsTrue(tryAddSmallCarnivore);
@@ -47,8 +47,8 @@ namespace AquascapeThemeKillerApp.Tests
             var smallCarnivore = new Fish(1, "Angelfish", 2, 1);
             var mediumHerbivore = new Fish(2, "Tetra", 1, 3);
 
-            var tryAddSmallCarnivore = manager.TryAddFish(smallCarnivore, aquascape);
-            var tryAddMediumHerbivore = manager.TryAddFish(mediumHerbivore, aquascape);
+            var tryAddSmallCarnivore = generator.TryAddFish(smallCarnivore, aquascape);
+            var tryAddMediumHerbivore = generator.TryAddFish(mediumHerbivore, aquascape);
 
             Assert.IsTrue(tryAddSmallCarnivore);
             Assert.IsTrue(tryAddMediumHerbivore);
@@ -61,8 +61,8 @@ namespace AquascapeThemeKillerApp.Tests
             var mediumCarnivore = new Fish(1, "Angelfish", 2, 3);
             var smallHerbivore = new Fish(2, "Tetra", 1, 1);
 
-            var tryAddMediumCarnivore = manager.TryAddFish(mediumCarnivore, aquascape);
-            var tryAddSmallHerbivore = manager.TryAddFish(smallHerbivore, aquascape);
+            var tryAddMediumCarnivore = generator.TryAddFish(mediumCarnivore, aquascape);
+            var tryAddSmallHerbivore = generator.TryAddFish(smallHerbivore, aquascape);
 
             Assert.IsTrue(tryAddMediumCarnivore);
             Assert.IsFalse(tryAddSmallHerbivore);
@@ -75,8 +75,8 @@ namespace AquascapeThemeKillerApp.Tests
             var smallHerbivore = new Fish(1, "Tetra", 1, 1);
             var mediumNormal = new Fish(2, "Tetra", 3, 3);
 
-            var tryAddSmallHerbivore = manager.TryAddFish(smallHerbivore, aquascape);
-            var tryAddMediumNormal = manager.TryAddFish(mediumNormal, aquascape);
+            var tryAddSmallHerbivore = generator.TryAddFish(smallHerbivore, aquascape);
+            var tryAddMediumNormal = generator.TryAddFish(mediumNormal, aquascape);
 
             Assert.IsTrue(tryAddSmallHerbivore);
             Assert.IsTrue(tryAddMediumNormal);
@@ -89,8 +89,8 @@ namespace AquascapeThemeKillerApp.Tests
             var smallNormal = new Fish(1, "Tetra", 3, 1);
             var mediumHerbivore = new Fish(2, "Tetra", 1, 3);
 
-            var tryAddSmallNormal = manager.TryAddFish(smallNormal, aquascape);
-            var tryAddMediumHerbivore = manager.TryAddFish(mediumHerbivore, aquascape);
+            var tryAddSmallNormal = generator.TryAddFish(smallNormal, aquascape);
+            var tryAddMediumHerbivore = generator.TryAddFish(mediumHerbivore, aquascape);
 
             Assert.IsTrue(tryAddSmallNormal);
             Assert.IsTrue(tryAddMediumHerbivore);
@@ -103,8 +103,8 @@ namespace AquascapeThemeKillerApp.Tests
             var smallCarnivore = new Fish(1, "Tetra", 2, 1);
             var mediumNormal = new Fish(2, "AngelFish", 3, 3);
 
-            var tryAddSmallCarnivore = manager.TryAddFish(smallCarnivore, aquascape);
-            var tryAddMediumNormal = manager.TryAddFish(mediumNormal, aquascape);
+            var tryAddSmallCarnivore = generator.TryAddFish(smallCarnivore, aquascape);
+            var tryAddMediumNormal = generator.TryAddFish(mediumNormal, aquascape);
 
             Assert.IsTrue(tryAddSmallCarnivore);
             Assert.IsTrue(tryAddMediumNormal);
@@ -117,8 +117,8 @@ namespace AquascapeThemeKillerApp.Tests
             var mediumCarnivore = new Fish(1, "Tetra", 2, 3);
             var smallNormal = new Fish(2, "AngelFish", 3, 1);
 
-            var tryAddMediumCarnivore = manager.TryAddFish(mediumCarnivore, aquascape);
-            var tryAddSmallNormal = manager.TryAddFish(smallNormal, aquascape);
+            var tryAddMediumCarnivore = generator.TryAddFish(mediumCarnivore, aquascape);
+            var tryAddSmallNormal = generator.TryAddFish(smallNormal, aquascape);
 
             Assert.IsTrue(tryAddMediumCarnivore);
             Assert.IsFalse(tryAddSmallNormal);
@@ -131,8 +131,8 @@ namespace AquascapeThemeKillerApp.Tests
             var mediumNormal = new Fish(1, "Tetra", 3, 3);
             var smallCarnivore = new Fish(2, "AngelFish", 2, 1);
 
-            var tryAddMediumNormal = manager.TryAddFish(mediumNormal, aquascape);
-            var tryAddSmallCarnivore = manager.TryAddFish(smallCarnivore, aquascape);
+            var tryAddMediumNormal = generator.TryAddFish(mediumNormal, aquascape);
+            var tryAddSmallCarnivore = generator.TryAddFish(smallCarnivore, aquascape);
 
             Assert.IsTrue(tryAddMediumNormal);
             Assert.IsTrue(tryAddSmallCarnivore);
@@ -145,8 +145,8 @@ namespace AquascapeThemeKillerApp.Tests
             var smallNormal = new Fish(1, "Tetra", 3, 1);
             var mediumCarnivore = new Fish(2, "AngelFish", 2, 3);
 
-            var tryAddSmallNormal = manager.TryAddFish(smallNormal, aquascape);
-            var tryAddMediumCarnivore = manager.TryAddFish(mediumCarnivore, aquascape);
+            var tryAddSmallNormal = generator.TryAddFish(smallNormal, aquascape);
+            var tryAddMediumCarnivore = generator.TryAddFish(mediumCarnivore, aquascape);
 
             Assert.IsTrue(tryAddSmallNormal);
             Assert.IsFalse(tryAddMediumCarnivore);

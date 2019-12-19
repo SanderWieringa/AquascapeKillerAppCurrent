@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquascapeThemeKillerApp.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquascapeThemeKillerApp.Logic-Interfaces", "AquascapeThemeKillerApp.Logic-Interfaces\AquascapeThemeKillerApp.Logic-Interfaces.csproj", "{7745ECC3-BC38-40F3-894B-C55814839597}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquascapeThemeKillerApp.Logic_Factory", "AquascapeThemeKillerApp.Logic_Factory\AquascapeThemeKillerApp.Logic_Factory.csproj", "{762570E4-5033-447B-88A9-9E1CF7616199}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquascapeThemeKillerApp.Logic_Factory", "AquascapeThemeKillerApp.Logic_Factory\AquascapeThemeKillerApp.Logic_Factory.csproj", "{762570E4-5033-447B-88A9-9E1CF7616199}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

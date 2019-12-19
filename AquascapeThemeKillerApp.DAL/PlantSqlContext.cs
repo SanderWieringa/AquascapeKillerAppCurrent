@@ -48,6 +48,9 @@ namespace AquascapeThemeKillerApp.DAL
             }
         }
 
-
+        public void DeletePlant(int plantId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

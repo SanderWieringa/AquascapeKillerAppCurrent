@@ -21,8 +21,6 @@ namespace AquascapeThemeKillerApp.DAL
 
     public class AquascapeSQLContext : IAquascapeContext
     {
-        MyCultureComparer myComparer = new MyCultureComparer();
-
         private AquascapeStruct AquascapeStruct;
         public List<PlantStruct> PlantsInAquarium { get; } = new List<PlantStruct>();
         public List<FishStruct> FishInAquarium { get; } = new List<FishStruct>();
@@ -56,6 +54,8 @@ namespace AquascapeThemeKillerApp.DAL
                 _conn.Open();
                 var cmd = new SqlCommand("SP_RemoveAquascape", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
+                cmd.ExecuteNonQuery();
+                _conn.Close();
             }
         }
 

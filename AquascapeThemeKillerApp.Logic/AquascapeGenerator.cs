@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AquascapeThemeKillerApp.DAL;
 using AquascapeThemeKillerApp.DAL_Factory;
 using AquascapeThemeKillerApp.DAL_Interfaces;
 using AquascapeThemeKillerApp.Logic_Interfaces;
@@ -9,7 +10,21 @@ using AquascapeThemeKillerApp.Logic_Interfaces;
 namespace AquascapeThemeKillerApp.Logic
 {
     public class AquascapeGenerator : IAquascapeGenerator
-    { 
+    {
+        private readonly IPlantCollectionRepository _plantCollectionRepository = PlantDalFactory.CreatePlantCollectionRepository();
+        private readonly IFishCollectionRepository _fishCollectionRepository = FishDalFactory.CreateFishCollectionRepository();
+
+        public AquascapeGenerator()
+        {
+            
+        }
+
+        public AquascapeGenerator(IPlantCollectionRepository plantRepository, IFishCollectionRepository fishRepository)
+        {
+            _plantCollectionRepository = plantRepository;
+            _fishCollectionRepository = fishRepository;
+        }
+
         private Plant ConvertPlant(IPlant plant)
         {
             return new Plant(plant.PlantId, plant.PlantName, plant.Difficulty);
@@ -20,39 +35,30 @@ namespace AquascapeThemeKillerApp.Logic
             return new Fish(fish.FishId, fish.FishName, fish.FishType, fish.FishSize);
         }
 
+        // CoupleStyle() new method to assign styles to aquascape
         public AquascapeModel GenerateAquascape()
         {
-            PlantCollection plantCollection = new PlantCollection();
-            FishCollection fishCollection = new FishCollection();
+            var fishCollection = new FishCollection(_fishCollectionRepository);
+            var plantCollection = new PlantCollection(_plantCollectionRepository);
             var aquascape = new Aquascape();
+            List<IPlant> plants = plantCollection.GetAllPlants();
+            List<IFish> fishes = fishCollection.GetAllFishes();
 
-            foreach (var plant in plantCollection.GetAllPlants())
+            for (var x = 0; x < plants.Count; x++)
             {
-                foreach (var fish in fishCollection.GetAllFishes())
+                IPlant plant = plants[x];
+                for (int y = 0; y < fishes.Count; y++)
                 {
-                    if (aquascape.PlantsInAquarium.Count < (aquascape.PlantsInAquarium.Count + aquascape.FishInAquarium.Count * 0.75))
+                    IFish fish = fishes[y];
+                    if ((aquascape.PlantsInAquarium.Count + 1) % 3 == 0 && aquascape.PlantsInAquarium.Count != 0 && !aquascape.FishInAquarium.Contains(fish))
                     {
-                        TryAddPlant(ConvertPlant(plant), aquascape);
+                        TryAddFish(ConvertFish(fish), aquascape);
+                        //x--;
                         break;
                     }
-
-                    TryAddFish(ConvertFish(fish), aquascape);
                 }
+                TryAddPlant(ConvertPlant(plant), aquascape);
             }
-
-            //foreach (var fish in aquascape._fishCollectionRepository.GetAllFishes())
-            //{
-            //    TryAddFish(new Fish(fish), aquascape);
-            //}
-
-            //foreach (var plant in aquascape._plantCollectionRepository.GetAllPlants())
-            //{
-            //    if (PlantsInAquarium.Count < (PlantsInAquarium.Count + FishInAquarium.Count * 0.75))
-            //    {
-            //        TryAddPlant(new Plant(plant), aquascape);
-            //    }
-
-            //}
 
             return new AquascapeModel(aquascape);
         }
@@ -67,17 +73,9 @@ namespace AquascapeThemeKillerApp.Logic
             aquascape.PlantsInAquarium.Add(plantToFill);
             return true;
         }
-
-        // CoupleStyle() new method to assign styles to aquascape
-
-        // ToDo: fix Open/Closed problem caused by using strings for FishTypes
+        
         public bool TryAddFish(Fish fishToFill, Aquascape aquascape)
         {
-            //if (PlantsInAquarium.Count < (PlantsInAquarium.Count + FishInAquarium.Count * 0.75))
-            //{
-            //    return false;
-            //}
-
             // FishType 2 equals Carnivore
             if (fishToFill.FishType.Equals(2))
             {

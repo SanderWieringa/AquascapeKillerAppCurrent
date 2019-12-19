@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using AquascapeThemeKillerApp.DAL;
 using AquascapeThemeKillerApp.DAL_Interfaces;
@@ -10,22 +11,19 @@ namespace AquascapeThemeKillerApp.Tests
     {
         private readonly List<FishStruct> _fishStructs = new List<FishStruct>();
 
-        private void PrefillFishList()
-        {
-            _fishStructs.Add(new FishStruct(1, "Tetra", 3, 3));
-            _fishStructs.Add(new FishStruct(2, "Angel Fish", 2, 3));
-
-        }
-
         public List<FishStruct> GetAllFishes()
         {
-            PrefillFishList();
             return _fishStructs;
         }
 
         public void AddFish(FishStruct fishStruct)
         {
             _fishStructs.Add(fishStruct);
+        }
+
+        public void DeleteFish(int fishId)
+        {
+            foreach (var fish in _fishStructs.Where(fish => fish.FishId == fishId).ToArray()) _fishStructs.Remove(fish);
         }
     }
 }

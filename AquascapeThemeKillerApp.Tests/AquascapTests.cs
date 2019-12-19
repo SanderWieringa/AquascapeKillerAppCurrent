@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using AquascapeThemeKillerApp.DAL;
 
 namespace AquascapeThemeKillerApp.Tests
 {
@@ -12,6 +13,13 @@ namespace AquascapeThemeKillerApp.Tests
     {
         private readonly IAquascapeCollectionRepository _aquascapeMemoryCollectionDal = TestFactory.CreateMemoryAquascapeCollectionDAL();
         private readonly IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDAL();
+
+        [TestMethod]
+        public void GetAllPlantTest_ShouldReturnTwo()
+        {
+           AquascapeRepository repository = new AquascapeRepository(new AquascapeMemoryContext());
+           repository.GetAllFishByAquascape(1);
+        }
 
         [TestMethod]
         public void GetAllPlantsByAquascapeTest_ShouldReturnTwo()
