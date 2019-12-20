@@ -53,7 +53,6 @@ namespace AquascapeThemeKillerApp.Logic
                     if ((aquascape.PlantsInAquarium.Count + 1) % 3 == 0 && aquascape.PlantsInAquarium.Count != 0 && !aquascape.FishInAquarium.Contains(fish))
                     {
                         TryAddFish(ConvertFish(fish), aquascape);
-                        //x--;
                         break;
                     }
                 }
