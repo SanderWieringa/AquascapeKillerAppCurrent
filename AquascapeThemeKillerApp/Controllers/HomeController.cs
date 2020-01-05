@@ -24,6 +24,8 @@ namespace AquascapeThemeKillerApp.Controllers
             return View();
         }
 
+        
+
         [HttpGet]
         public IActionResult GetAllPlantsByAquascape(int aquascapeId)
         {
@@ -48,6 +50,20 @@ namespace AquascapeThemeKillerApp.Controllers
             {
                 return default;
             }
+        }
+
+        [HttpGet]
+        public IActionResult AssembleAquascape()
+        {
+            AssembleAquascapeViewModel viewModel = new AssembleAquascapeViewModel();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SubmitSelectedPlant()
+        {
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

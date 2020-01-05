@@ -16,5 +16,6 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
         //AquascapeModel GenerateAquascape(List<PlantModel> plantList, List<FishModel> fishList);
         List<IPlant> GetAllPlantsByAquascape(int aquascapeId);
         List<IFish> GetAllFishByAquascape(int aquascapeId);
+        
     }
 }

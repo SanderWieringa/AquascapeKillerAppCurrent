@@ -11,5 +11,7 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
         List<IAquascape> GetAllAquascapes();
         AquascapeModel GetAquascapeById(int aquascapeId);
         AquascapeModel GetAquascapeByStyle();
+        void AssemblePlants(List<IPlant> selectedPlants);
+        List<IFish> AssembleFishes(List<IFish> selectedFishes);
     }
 }

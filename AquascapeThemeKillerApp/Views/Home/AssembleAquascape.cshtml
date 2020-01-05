@@ -1,0 +1,87 @@
+﻿@model AquascapeThemeKillerApp.Models.AssembleAquascapeViewModel
+
+@{
+    ViewData["Title"] = "AssembleAquascape";
+}
+
+<h2>AssembleAquascape</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.Label("PlantId")
+        </th>
+        <th>
+            @Html.Label("PlantName")
+        </th>
+        <th>
+            @Html.Label("Difficulty")
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.AllPlants)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Difficulty)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.Label("FishId")
+        </th>
+        <th>
+            @Html.Label("FishName")
+        </th>
+        <th>
+            @Html.Label("FishType")
+        </th>
+        <th>
+            @Html.Label("FishSize")
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Allfishes)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishSize)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

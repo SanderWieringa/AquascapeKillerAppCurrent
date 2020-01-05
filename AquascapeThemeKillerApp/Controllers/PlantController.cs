@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AquascapeThemeKillerApp.Logic_Factory;
 using AquascapeThemeKillerApp.Logic_Interfaces;
+using AquascapeThemeKillerApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AquascapeThemeKillerApp.Controllers
@@ -11,6 +12,8 @@ namespace AquascapeThemeKillerApp.Controllers
     public class PlantController : Controller
     {
         private readonly IPlantCollection _plantCollectionLogic = PlantLogicFactory.CreatePlantCollection();
+
+        
 
         public IActionResult GetAllPlants()
         {

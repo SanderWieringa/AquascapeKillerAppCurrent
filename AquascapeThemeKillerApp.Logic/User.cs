@@ -14,7 +14,7 @@ namespace AquascapeThemeKillerApp.Logic
         private readonly IAquascapeCollectionRepository _userRepository = AquascapeDALFactory.CreateUserRepository();
 
         private IAquascapeRepository _aquascapeRepository = AquascapeDALFactory.CreateAquascapeRepository();
-
+        Aquascape aquascape = new Aquascape();
         public int UserId { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
@@ -132,6 +132,23 @@ namespace AquascapeThemeKillerApp.Logic
         // ToDo: Implement styles
         
         public AquascapeModel GetAquascapeByStyle()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AssemblePlants(List<IPlant> selectedPlants)
+        {
+            AquascapeGenerator aquascapeGenerator = new AquascapeGenerator();
+
+            foreach (var plant in selectedPlants)
+            {
+                aquascapeGenerator.TryAddPlant(plant as Plant, aquascape);
+            }
+
+            //return new AquascapeModel(aquascape);
+        }
+
+        public List<IFish> AssembleFishes(List<IFish> selectedFishes)
         {
             throw new NotImplementedException();
         }
