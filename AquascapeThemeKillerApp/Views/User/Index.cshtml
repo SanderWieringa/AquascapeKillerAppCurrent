@@ -1,9 +1,9 @@
 ﻿@model AquascapeThemeKillerApp.Models.AquascapeItemSelectionViewModel
-@*@{
+@{
         ViewData["Title"] = "Index";
     }
 
-    <h2>Index</h2>*@
+    @*<h2>Index</h2>*@
 
 @using (Html.BeginForm("SubmitSelectedPlant", "User", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
 {
@@ -13,15 +13,11 @@
                 Select
             </th>
             <th>
-                PlantId
-            </th>
-            <th>
                 PlantName
             </th>
             <th>
                 Difficulty
             </th>
-            <th></th>
         </tr>
         @Html.EditorFor(model => model.Plants)
     </table>

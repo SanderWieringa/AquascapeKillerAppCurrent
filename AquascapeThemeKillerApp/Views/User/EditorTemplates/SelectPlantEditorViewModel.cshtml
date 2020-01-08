@@ -4,22 +4,22 @@
     ViewData["Title"] = "SelectPlantEditorViewModel";
 }
 
-<tr>
-    <td style="text-align:center">
-        @Html.CheckBoxFor(model => model.Selected)
-    </td>
-    <td>
-        @Html.DisplayFor(model => model.PlantId)
-    </td>
-    <td>
-        @Html.DisplayFor(model => model.PlantName)
-    </td>
-    <td>
-        @Html.DisplayFor(model => model.Difficulty)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.PlantId }) |
-        @Html.ActionLink("Details", "Details", new { id = Model.PlantId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = Model.PlantId })
-    </td>
-</tr>
+    <tr>
+        <td style="text-align: center">
+            @Html.CheckBoxFor(model => model.Selected)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PlantName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Difficulty)
+        </td>
+        <td>
+            @Html.HiddenFor(model => model.PlantId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.PlantId }) |
+            @Html.ActionLink("Details", "Details", new { id = Model.PlantId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.PlantId })
+        </td>
+    </tr>

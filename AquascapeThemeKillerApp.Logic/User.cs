@@ -14,10 +14,15 @@ namespace AquascapeThemeKillerApp.Logic
         private readonly IAquascapeCollectionRepository _userRepository = AquascapeDALFactory.CreateUserRepository();
 
         private IAquascapeRepository _aquascapeRepository = AquascapeDALFactory.CreateAquascapeRepository();
+
+        private const string PlantError = "This plant could not be added!: {0}";
+        private const string FishError = "This fish could not be added!: {0}";
+
         Aquascape aquascape = new Aquascape();
         public int UserId { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
+        private AquascapeGenerator _aquascapeGenerator;
 
         public User(int userId, string userName, string password)
         {
@@ -136,21 +141,46 @@ namespace AquascapeThemeKillerApp.Logic
             throw new NotImplementedException();
         }
 
-        public void AssemblePlants(List<IPlant> selectedPlants)
+        public AquascapeModel AssemblePlants(List<IPlant> selectedPlants)
         {
-            AquascapeGenerator aquascapeGenerator = new AquascapeGenerator();
+            _aquascapeGenerator = new AquascapeGenerator();
 
             foreach (var plant in selectedPlants)
             {
-                aquascapeGenerator.TryAddPlant(plant as Plant, aquascape);
+                if (!_aquascapeGenerator.TryAddPlant(plant as Plant, aquascape))
+                {
+                    throw new ArgumentException(string.Format(PlantError, plant));
+                }
             }
 
-            //return new AquascapeModel(aquascape);
+            return new AquascapeModel(aquascape);
         }
 
-        public List<IFish> AssembleFishes(List<IFish> selectedFishes)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="selectedFishes"></param>
+        /// <returns></returns>
+        public AquascapeModel AssembleFishes(List<IFish> selectedFishes)
+        {
+            _aquascapeGenerator = new AquascapeGenerator();
+
+            foreach (var fish in selectedFishes)
+            {
+                if (!_aquascapeGenerator.TryAddFish(fish as Fish, aquascape))
+                {
+                    throw new ArgumentException(string.Format(FishError, fish));
+                    
+                }
+            }
+
+            return new AquascapeModel(aquascape);
+        }
+
+        public string AssembleAquascape(List<object> list)
         {
             throw new NotImplementedException();
+          
         }
     }
 }

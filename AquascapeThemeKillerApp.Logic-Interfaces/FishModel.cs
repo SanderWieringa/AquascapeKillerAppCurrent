@@ -23,5 +23,10 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
             FishType = fishType;
             FishSize = fishSize;
         }
+
+        public FishModel()
+        {
+            
+        }
     }
 }

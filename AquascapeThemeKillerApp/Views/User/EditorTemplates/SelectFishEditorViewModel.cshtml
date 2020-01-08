@@ -4,25 +4,25 @@
     ViewData["Title"] = "SelectFishEditorViewModel";
 }
 
-<tr>
-    <td style="text-align:center">
-        @Html.CheckBoxFor(model => model.Selected)
-    </td>
-    <td>
-        @Html.DisplayFor(model => model.FishId)
-    </td>
-    <td>
-        @Html.DisplayFor(model => model.FishName)
-    </td>
-    <td>
-        @Html.DisplayFor(model => model.FishType)
-    </td>
-    <td>
-        @Html.DisplayFor(model => model.FishSize)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.FishId }) |
-        @Html.ActionLink("Details", "Details", new { id = Model.FishId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = Model.FishId })
-    </td>
-</tr>
+    <tr>
+        <td style="text-align:center">
+            @Html.CheckBoxFor(model => model.Selected)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.FishName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.FishType)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.FishSize)
+        </td>
+        <td>
+            @Html.HiddenFor(model => model.FishId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.FishId }) |
+            @Html.ActionLink("Details", "Details", new { id = Model.FishId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.FishId })
+        </td>
+    </tr>

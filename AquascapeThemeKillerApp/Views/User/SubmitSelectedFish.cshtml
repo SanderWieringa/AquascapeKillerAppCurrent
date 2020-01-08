@@ -6,36 +6,34 @@
 
 <h2>Assembled Aquascape</h2>
 
-@using (Html.BeginForm("CreateAquascape", "User", FormMethod.Post, new {encType = "multipart/form-data", name = "myform"}))
-{
-    <div>
-        <h4>AquascapeModel</h4>
-        <hr/>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.AquascapeId)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.AquascapeId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
+<div>
+    <h4>AquascapeModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AquascapeId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AquascapeId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
 
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Difficulty)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Difficulty)
-            </dd>
-        </dl>
-    </div>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Difficulty)
+        </dd>
+    </dl>
+</div>
 
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
         <tr>
             <th>
                 @Html.Label("PlantId")
@@ -47,8 +45,8 @@
                 @Html.Label("Difficulty")
             </th>
         </tr>
-        </thead>
-        <tbody>
+    </thead>
+    <tbody>
         @foreach (var item in Model.PlantsInAquarium)
         {
             <tr>
@@ -62,17 +60,17 @@
                     @Html.DisplayFor(modelItem => item.Difficulty)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>
             </tr>
         }
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
         <tr>
             <th>
                 @Html.Label("FishId")
@@ -87,8 +85,8 @@
                 @Html.Label("FishSize")
             </th>
         </tr>
-        </thead>
-        <tbody>
+    </thead>
+    <tbody>
         @foreach (var item in Model.FishInAquarium)
         {
             <tr>
@@ -105,16 +103,15 @@
                     @Html.DisplayFor(modelItem => item.FishSize)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>
             </tr>
         }
-        </tbody>
-    </table>
-}
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>
+    </tbody>
+</table>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

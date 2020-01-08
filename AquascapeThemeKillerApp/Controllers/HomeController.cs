@@ -24,7 +24,11 @@ namespace AquascapeThemeKillerApp.Controllers
             return View();
         }
 
-        
+
+        public IActionResult CreateNewAquascape()
+        {
+            return RedirectToAction();
+        }
 
         [HttpGet]
         public IActionResult GetAllPlantsByAquascape(int aquascapeId)

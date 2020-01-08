@@ -21,5 +21,10 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
             PlantName = plantName;
             Difficulty = difficulty;
         }
+
+        public PlantModel()
+        {
+            
+        }
     }
 }

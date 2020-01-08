@@ -1,0 +1,44 @@
+﻿@model AquascapeThemeKillerApp.Models.SelectPlantEditorViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("SubmitSelectedPlant", "User", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
+{
+<table class="table">
+    <tr>
+        <th>
+            Select
+        </th>
+        <th>
+            PlantName
+        </th>
+        <th>
+            Difficulty
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.CheckBoxFor(editorViewModel => editorViewModel.Selected)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PlantName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Difficulty)
+        </td>
+        <td>
+            @Html.HiddenFor(model => model.PlantId)
+        </td>
+        @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.PlantId }) |
+                @Html.ActionLink("Details", "Details", new { id = Model.PlantId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = Model.PlantId })
+        </td>*@
+    </tr>
+</table>
+    <input type="submit" value="Submit Selected" />
+    }

@@ -7,6 +7,9 @@ namespace AquascapeThemeKillerApp.Models
 {
     public class AquascapeItemSelectionViewModel
     {
+        public int AquascapeId { get; set; }
+        public string AquascapeName { get; set; }
+        public int Difficulty { get; set; }
         public List<SelectPlantEditorViewModel> Plants { get; set; }
         public List<SelectFishEditorViewModel> Fishes { get; set; }
 
@@ -18,12 +21,12 @@ namespace AquascapeThemeKillerApp.Models
 
         public IEnumerable<int> GetSelectedPlantIds()
         {
-            return (from plant in Plants where plant.Selected select plant.PlantId);
+            return from plant in Plants where plant.Selected select plant.PlantId;
         }
 
-        public List<int> GetSelectedFishIds()
+        public IEnumerable<int> GetSelectedFishIds()
         {
-            return (from fish in Fishes where fish.Selected select fish.FishId).ToList();
+            return from fish in Fishes where fish.Selected select fish.FishId;
         }
     }
 }
