@@ -20,7 +20,6 @@
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
-
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Name)
@@ -70,6 +69,10 @@
         }
         </tbody>
     </table>
+
+    <a href="@Url.Action("AddPlant","Aquascape", new { id = Model.AquascapeId })">
+        <input type="button" name="operation" value="Add Plants" />
+    </a>
 
     <table class="table">
         <thead>

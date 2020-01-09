@@ -29,6 +29,10 @@ namespace AquascapeThemeKillerApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+
+            
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -36,10 +40,17 @@ namespace AquascapeThemeKillerApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //services.AddTransient<IAquascapeCollection>(new User(new IUserCollectionRepository));
             //services.AddSingleton<IUserCollectionRepository>(new UserCollection(new UserRepository(new UserSQLContext("Server=mssql.fhict.local;Database=dbi365250;User Id=dbi365250;Password=wmKX4BRxr7GA!;"))));
+            
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +69,6 @@ namespace AquascapeThemeKillerApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

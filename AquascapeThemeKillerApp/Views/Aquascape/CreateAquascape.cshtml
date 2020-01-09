@@ -5,7 +5,7 @@
 
     @*<h2>Index</h2>*@
 
-@using (Html.BeginForm("SubmitSelectedPlant", "User", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
+@using (Html.BeginForm("SubmitSelectedPlant", "Aquascape", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
 {
     <table class="table">
         <tr>
@@ -23,12 +23,13 @@
     </table>
     <hr />
     <br />
+
     <input type="submit" name="operation" id="submit" value="Submit Selected" />
 }
 
 <h3>===========================================================================</h3>
 
-@using (Html.BeginForm("SubmitSelectedFish", "User", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
+@using (Html.BeginForm("SubmitSelectedFish", "Aquascape", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
 {
     <table class="table">
         <tr>

@@ -17,5 +17,10 @@ namespace AquascapeThemeKillerApp.Logic_Factory
         {
             return new Aquascape();
         }
+
+        public static IAquascapeAssembler CreateAquascapeAssembler()
+        {
+            return new AquascapeAssembler();
+        }
     }
 }

@@ -15,14 +15,13 @@ namespace AquascapeThemeKillerApp.Logic
 
         private IAquascapeRepository _aquascapeRepository = AquascapeDALFactory.CreateAquascapeRepository();
 
-        private const string PlantError = "This plant could not be added!: {0}";
-        private const string FishError = "This fish could not be added!: {0}";
+        
 
-        Aquascape aquascape = new Aquascape();
+        
         public int UserId { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
-        private AquascapeGenerator _aquascapeGenerator;
+        
 
         public User(int userId, string userName, string password)
         {
@@ -57,11 +56,11 @@ namespace AquascapeThemeKillerApp.Logic
 
         private static List<IPlant> ConvertPlantStructList(List<PlantStruct> plantStructList)
         {
-            List<IPlant> plantList = new List<IPlant>();
+            var plantList = new List<IPlant>();
 
             try
             {
-                foreach (var plant in plantStructList)
+                foreach (PlantStruct plant in plantStructList)
                 {
                     plantList.Add(new Plant(plant));
                 }
@@ -77,11 +76,11 @@ namespace AquascapeThemeKillerApp.Logic
 
         private List<IFish> ConvertFishStructList(List<FishStruct> fishStructList)
         {
-            List<IFish> fishList = new List<IFish>();
+            var fishList = new List<IFish>();
 
             try
             {
-                foreach (var fish in fishStructList)
+                foreach (FishStruct fish in fishStructList)
                 {
                     fishList.Add(new Fish(fish));
                 }
@@ -110,11 +109,11 @@ namespace AquascapeThemeKillerApp.Logic
 
         public List<IAquascape> GetAllAquascapes()
         {
-            List<IAquascape> aquascapeList = new List<IAquascape>();
+            var aquascapeList = new List<IAquascape>();
 
             try
             {
-                foreach (var aquascape in _userRepository.GetAllAquascapes())
+                foreach (AquascapeStruct aquascape in _userRepository.GetAllAquascapes())
                 {
                     aquascapeList.Add(new Aquascape(aquascape));
                 }
@@ -141,46 +140,6 @@ namespace AquascapeThemeKillerApp.Logic
             throw new NotImplementedException();
         }
 
-        public AquascapeModel AssemblePlants(List<IPlant> selectedPlants)
-        {
-            _aquascapeGenerator = new AquascapeGenerator();
-
-            foreach (var plant in selectedPlants)
-            {
-                if (!_aquascapeGenerator.TryAddPlant(plant as Plant, aquascape))
-                {
-                    throw new ArgumentException(string.Format(PlantError, plant));
-                }
-            }
-
-            return new AquascapeModel(aquascape);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="selectedFishes"></param>
-        /// <returns></returns>
-        public AquascapeModel AssembleFishes(List<IFish> selectedFishes)
-        {
-            _aquascapeGenerator = new AquascapeGenerator();
-
-            foreach (var fish in selectedFishes)
-            {
-                if (!_aquascapeGenerator.TryAddFish(fish as Fish, aquascape))
-                {
-                    throw new ArgumentException(string.Format(FishError, fish));
-                    
-                }
-            }
-
-            return new AquascapeModel(aquascape);
-        }
-
-        public string AssembleAquascape(List<object> list)
-        {
-            throw new NotImplementedException();
-          
-        }
+        
     }
 }
