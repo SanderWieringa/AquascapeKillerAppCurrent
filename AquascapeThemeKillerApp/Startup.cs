@@ -36,19 +36,20 @@ namespace AquascapeThemeKillerApp
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddSession();
+            services.AddMvc();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSession();
             //services.AddTransient<IAquascapeCollection>(new User(new IUserCollectionRepository));
             //services.AddSingleton<IUserCollectionRepository>(new UserCollection(new UserRepository(new UserSQLContext("Server=mssql.fhict.local;Database=dbi365250;User Id=dbi365250;Password=wmKX4BRxr7GA!;"))));
-            
+
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(1800);
                 options.Cookie.IsEssential = true;
             });
         }
@@ -69,6 +70,7 @@ namespace AquascapeThemeKillerApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

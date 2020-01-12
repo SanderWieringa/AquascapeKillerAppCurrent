@@ -23,14 +23,20 @@ namespace AquascapeThemeKillerApp.Controllers
 
         public ActionResult Index()
         {
-            return View(_aquascapeLogic.CreateAquascape());
+            AquascapeModel aquascapeModel = _aquascapeLogic.CreateAquascape();
+            aquascapeModel.Name = "aids";
+            HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
+
+           var meuk = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
+
+            return View(aquascapeModel);
         }
 
         public ActionResult AddPlant()
         {
             _model = new AquascapeItemSelectionViewModel();
 
-            foreach (var plant in _plantCollectionLogic.GetAllPlants())
+            foreach (IPlant plant in _plantCollectionLogic.GetAllPlants())
             {
                 var editorViewModel = new SelectPlantEditorViewModel()
                 {
@@ -45,11 +51,31 @@ namespace AquascapeThemeKillerApp.Controllers
             return View(_model);
         }
 
+        public ActionResult AddFish()
+        {
+            _model = new AquascapeItemSelectionViewModel();
+
+            foreach (IFish fish in _fishCollectionLogic.GetAllFishes())
+            {
+                var editorViewModel = new SelectFishEditorViewModel
+                {
+                    Selected = false,
+                    FishId = fish.FishId,
+                    FishName = fish.FishName,
+                    FishType = fish.FishType,
+                    FishSize = fish.FishSize
+                };
+                _model.Fishes.Add(editorViewModel);
+            }
+
+            return View(_model);
+        }
+
         public ActionResult CreateAquascape()
         {
             var model = new AquascapeItemSelectionViewModel();
 
-            foreach (var plant in _plantCollectionLogic.GetAllPlants())
+            foreach (IPlant plant in _plantCollectionLogic.GetAllPlants())
             {
                 var editorViewModel = new SelectPlantEditorViewModel()
                 {
@@ -61,7 +87,7 @@ namespace AquascapeThemeKillerApp.Controllers
                 model.Plants.Add(editorViewModel);
             }
 
-            foreach (var fish in _fishCollectionLogic.GetAllFishes())
+            foreach (IFish fish in _fishCollectionLogic.GetAllFishes())
             {
                 var editorViewModel = new SelectFishEditorViewModel
                 {
@@ -85,8 +111,15 @@ namespace AquascapeThemeKillerApp.Controllers
             var selectedFishes = (from fish in _fishCollectionLogic.GetAllFishes()
                                   where selectedIds.Contains(fish.FishId)
                                   select fish).ToList();
+             
+             AquascapeModel aquascapeModel = _aquascapeLogic.AssembleFishes(selectedFishes);
 
-            AquascapeModel aquascapeModel = _aquascapeLogic.AssembleFishes(selectedFishes);
+             foreach (var fish in HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject").FishInAquarium)
+             {
+                 aquascapeModel.FishInAquarium.Add(fish);
+             }
+             
+             HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
 
             return View(aquascapeModel);
         }
@@ -100,7 +133,13 @@ namespace AquascapeThemeKillerApp.Controllers
                                   where selectedIds.Contains(plant.PlantId)
                                   select plant).ToList();
 
-            AquascapeModel aquascapeModel = _aquascapeLogic.AssemblePlants(selectedPlants);
+            //var sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
+            AquascapeModel aquascapeModel= _aquascapeLogic.AssemblePlants(selectedPlants);
+
+            foreach (var plant in HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject").PlantsInAquarium)
+            {
+                aquascapeModel.PlantsInAquarium.Add(plant);
+            }
 
             HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
 

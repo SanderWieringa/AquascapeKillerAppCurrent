@@ -117,7 +117,12 @@
         </tbody>
     </table>
 }
-    <div>
+
+<a href="@Url.Action("AddFish","Aquascape", new { id = Model.AquascapeId })">
+    <input type="button" name="operation" value="Add Fishes" />
+</a>
+
+<div>
         @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
         <a asp-action="Index">Back to List</a>
     </div>

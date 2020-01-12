@@ -76,46 +76,51 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.Label("FishId")
-            </th>
-            <th>
-                @Html.Label("FishName")
-            </th>
-            <th>
-                @Html.Label("FishType")
-            </th>
-            <th>
-                @Html.Label("FishSize")
-            </th>
-        </tr>
+    <tr>
+        <th>
+            @Html.Label("FishId")
+        </th>
+        <th>
+            @Html.Label("FishName")
+        </th>
+        <th>
+            @Html.Label("FishType")
+        </th>
+        <th>
+            @Html.Label("FishSize")
+        </th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (IFish item in Model.FishInAquarium)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishSize)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-        }
+    @foreach (IFish item in Model.FishInAquarium)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishSize)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+
+<a href="@Url.Action("AddFish","Aquascape", new { id = Model.AquascapeId })">
+    <input type="button" name="operation" value="Add Fishes" />
+</a>
+
 <div>
     @Html.ActionLink("Edit", "CreateAquascape", new { id = Model.AquascapeId }) |
     <a asp-action="Index">Back to List</a>

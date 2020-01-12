@@ -1,0 +1,32 @@
+﻿@model AquascapeThemeKillerApp.Models.AquascapeItemSelectionViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+@using (Html.BeginForm("SubmitSelectedFish", "Aquascape", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
+{
+    <table class="table">
+        <tr>
+            <th>
+                Select
+            </th>
+            <th>
+                FishId
+            </th>
+            <th>
+                FishName
+            </th>
+            <th>
+                FishType
+            </th>
+            <th>
+                FishSize
+            </th>
+            <th></th>
+        </tr>
+        @Html.EditorFor(model => model.Fishes)
+    </table>
+    <hr />
+    <br />
+    <input type="submit" name="operation" id="submit" value="Submit Selected" />
+}
