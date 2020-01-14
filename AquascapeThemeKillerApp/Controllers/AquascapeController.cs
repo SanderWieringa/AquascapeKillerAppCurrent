@@ -24,10 +24,7 @@ namespace AquascapeThemeKillerApp.Controllers
         public ActionResult Index()
         {
             AquascapeModel aquascapeModel = _aquascapeLogic.CreateAquascape();
-            aquascapeModel.Name = "aids";
             HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
-
-           var meuk = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
 
             return View(aquascapeModel);
         }
@@ -112,14 +109,14 @@ namespace AquascapeThemeKillerApp.Controllers
                                   where selectedIds.Contains(fish.FishId)
                                   select fish).ToList();
              
-             AquascapeModel aquascapeModel = _aquascapeLogic.AssembleFishes(selectedFishes);
+            AquascapeModel aquascapeModel = _aquascapeLogic.AssembleFishes(selectedFishes);
 
-             foreach (var fish in HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject").FishInAquarium)
-             {
-                 aquascapeModel.FishInAquarium.Add(fish);
-             }
+            foreach (var fish in HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject").FishInAquarium)
+            {
+                aquascapeModel.FishInAquarium.Add(fish);
+            }
              
-             HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
+            HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
 
             return View(aquascapeModel);
         }
@@ -132,11 +129,10 @@ namespace AquascapeThemeKillerApp.Controllers
             var selectedPlants = (from plant in _plantCollectionLogic.GetAllPlants()
                                   where selectedIds.Contains(plant.PlantId)
                                   select plant).ToList();
-
-            //var sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
+            
             AquascapeModel aquascapeModel= _aquascapeLogic.AssemblePlants(selectedPlants);
 
-            foreach (var plant in HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject").PlantsInAquarium)
+            foreach (PlantModel plant in HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject").PlantsInAquarium)
             {
                 aquascapeModel.PlantsInAquarium.Add(plant);
             }
@@ -149,7 +145,19 @@ namespace AquascapeThemeKillerApp.Controllers
         [HttpPost]
         public ActionResult Create(AquascapeItemSelectionViewModel model)
         {
-            _aquascapeCollection.AddAquascape(ConvertSelectionViewModel(model));
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _aquascapeCollection.AddAquascape(ConvertSelectionViewModel(model));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                
+            }
 
             return default;
         }
@@ -163,13 +171,13 @@ namespace AquascapeThemeKillerApp.Controllers
                 Difficulty = model.Difficulty
             };
 
-            var plants = new List<IPlant>();
+            var plants = new List<PlantModel>();
             foreach (SelectPlantEditorViewModel plant in model.Plants)
             {
                 plants.Add(ConvertPlantViewModel(plant));
             }
 
-            var fishes = new List<IFish>();
+            var fishes = new List<FishModel>();
             foreach (SelectFishEditorViewModel fish in model.Fishes)
             {
                 fishes.Add(ConvertFishViewModel(fish));

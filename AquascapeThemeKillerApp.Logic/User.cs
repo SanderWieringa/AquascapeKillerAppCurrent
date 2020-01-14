@@ -54,35 +54,35 @@ namespace AquascapeThemeKillerApp.Logic
             return aquascapeModel;
         }
 
-        private static List<IPlant> ConvertPlantStructList(List<PlantStruct> plantStructList)
+        private static List<PlantModel> ConvertPlantStructList(List<PlantStruct> plantStructList)
         {
-            var plantList = new List<IPlant>();
+            var plantList = new List<PlantModel>();
 
             try
             {
                 foreach (PlantStruct plant in plantStructList)
                 {
-                    plantList.Add(new Plant(plant));
+                    plantList.Add(new PlantModel(new Plant(plant)));
                 }
 
                 return plantList;
             }
             catch (Exception e)
             {
-                return new List<IPlant>();
+                return new List<PlantModel>();
             }
                 
         }
 
-        private List<IFish> ConvertFishStructList(List<FishStruct> fishStructList)
+        private List<FishModel> ConvertFishStructList(List<FishStruct> fishStructList)
         {
-            var fishList = new List<IFish>();
+            var fishList = new List<FishModel>();
 
             try
             {
                 foreach (FishStruct fish in fishStructList)
                 {
-                    fishList.Add(new Fish(fish));
+                    fishList.Add(new FishModel(new Fish(fish)));
                 }
            
                 return fishList;
@@ -90,7 +90,7 @@ namespace AquascapeThemeKillerApp.Logic
             catch (Exception e)
             {
 
-                return new List<IFish>();
+                return new List<FishModel>();
             }
             
         }
@@ -127,6 +127,8 @@ namespace AquascapeThemeKillerApp.Logic
             }
             
         }
+
+        
 
         public AquascapeModel GetAquascapeById(int aquascapeId)
         {

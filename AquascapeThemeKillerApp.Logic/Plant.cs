@@ -28,5 +28,10 @@ namespace AquascapeThemeKillerApp.Logic
         {
 
         }
+
+        public Plant()
+        {
+
+        }
     }
 }

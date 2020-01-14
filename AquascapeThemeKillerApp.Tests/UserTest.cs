@@ -13,8 +13,8 @@ namespace AquascapeThemeKillerApp.Tests
     {
         private readonly IAquascapeCollectionRepository _aquascapeMemoryCollectionDal = TestFactory.CreateMemoryAquascapeCollectionDAL();
         private readonly IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDAL();
-        public List<IPlant> PlantsInAquarium { get; } = new List<IPlant>();
-        public List<IFish> FishInAquarium { get; } = new List<IFish>();
+        public List<PlantModel> PlantsInAquarium { get; } = new List<PlantModel>();
+        public List<FishModel> FishInAquarium { get; } = new List<FishModel>();
 
         [TestMethod]
         public void GetAllAquascapesTest()

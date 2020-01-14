@@ -6,23 +6,23 @@
 
 <h2>Assembled Aquascape</h2>
 
-@using (Html.BeginForm("CreateAquascape", "User", FormMethod.Post, new {encType = "multipart/form-data", name = "myform"}))
+@using (Html.BeginForm("Create", "Aquascape", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
 {
     <div>
         <h4>AquascapeModel</h4>
-        <hr/>
+        <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.AquascapeId)
+                @Html.HiddenFor(model => model.AquascapeId)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.AquascapeId)
+                @Html.HiddenFor(model => model.AquascapeId)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Name)
+                @Html.EditorFor(model => model.Name)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Difficulty)
@@ -35,38 +35,38 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th>
-                @Html.Label("PlantId")
-            </th>
-            <th>
-                @Html.Label("PlantName")
-            </th>
-            <th>
-                @Html.Label("Difficulty")
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    @Html.Label("PlantId")
+                </th>
+                <th>
+                    @Html.Label("PlantName")
+                </th>
+                <th>
+                    @Html.Label("Difficulty")
+                </th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model.PlantsInAquarium)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlantId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlantName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Difficulty)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
-                </td>
-            </tr>
-        }
+            @foreach (var item in Model.PlantsInAquarium)
+            {
+                <tr>
+                    <td>
+                        @Html.EditorFor(modelItem => item.PlantId)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => item.PlantName)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => item.Difficulty)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                        @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                        @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 
@@ -76,53 +76,55 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th>
-                @Html.Label("FishId")
-            </th>
-            <th>
-                @Html.Label("FishName")
-            </th>
-            <th>
-                @Html.Label("FishType")
-            </th>
-            <th>
-                @Html.Label("FishSize")
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    @Html.Label("FishId")
+                </th>
+                <th>
+                    @Html.Label("FishName")
+                </th>
+                <th>
+                    @Html.Label("FishType")
+                </th>
+                <th>
+                    @Html.Label("FishSize")
+                </th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model.FishInAquarium)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishSize)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
-                </td>
-            </tr>
-        }
+            @foreach (var item in Model.FishInAquarium)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FishId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FishName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FishType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FishSize)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                        @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                        @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
+
+
+    <a href="@Url.Action("AddFish","Aquascape", new { id = Model.AquascapeId })">
+        <input type="button" name="operation" value="Add Fishes" />
+    </a>
+
+    <input id="button" type="submit" value="Save" class="btn btn-default" />
 }
-
-<a href="@Url.Action("AddFish","Aquascape", new { id = Model.AquascapeId })">
-    <input type="button" name="operation" value="Add Fishes" />
-</a>
-
 <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

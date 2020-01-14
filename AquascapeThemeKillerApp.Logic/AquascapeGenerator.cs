@@ -69,7 +69,7 @@ namespace AquascapeThemeKillerApp.Logic
                 return false;
             }
 
-            aquascape.PlantsInAquarium.Add(plantToFill);
+            aquascape.PlantsInAquarium.Add(new PlantModel(plantToFill));
             return true;
         }
         
@@ -104,7 +104,7 @@ namespace AquascapeThemeKillerApp.Logic
                 }
             }
 
-            aquascape.FishInAquarium.Add(fishToFill);
+            aquascape.FishInAquarium.Add(new FishModel(fishToFill));
             return true;
         }
     }

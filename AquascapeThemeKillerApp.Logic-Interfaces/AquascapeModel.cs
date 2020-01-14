@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,13 +7,14 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
 {
     public class AquascapeModel
     {
-        public List<IPlant> PlantsInAquarium { get; set; }
-        public List<IFish> FishInAquarium { get; set; }
+        //[JsonConverter(typeof(ConcreteTypeConverter<PlantModel>))]
+        public List<PlantModel> PlantsInAquarium { get; set; }
+        public List<FishModel> FishInAquarium { get; set; }
         public int AquascapeId { get; set; }
         public string Name { get; set; }
         public int Difficulty { get; set; }
 
-        public AquascapeModel(List<IPlant> plantsInAquarium, List<IFish> fishInAquarium, int aquascapeId, string name, int difficulty)
+        public AquascapeModel(List<PlantModel> plantsInAquarium, List<FishModel> fishInAquarium, int aquascapeId, string name, int difficulty)
         {
             PlantsInAquarium = plantsInAquarium;
             FishInAquarium = fishInAquarium;
