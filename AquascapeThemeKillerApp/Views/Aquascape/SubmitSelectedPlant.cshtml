@@ -4,12 +4,9 @@
     ViewData["Title"] = "AquascapeDetails";
 }
 
-<h2>Assembled Aquascape</h2>
-
 @using (Html.BeginForm("Create", "Aquascape", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
 {
     <div>
-        <h4>AquascapeModel</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -52,13 +49,13 @@
             {
                 <tr>
                     <td>
-                        @Html.EditorFor(modelItem => item.PlantId)
+                        @Html.DisplayFor(modelItem => item.PlantId)
                     </td>
                     <td>
-                        @Html.EditorFor(modelItem => item.PlantName)
+                        @Html.DisplayFor(modelItem => item.PlantName)
                     </td>
                     <td>
-                        @Html.EditorFor(modelItem => item.Difficulty)
+                        @Html.DisplayFor(modelItem => item.Difficulty)
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |

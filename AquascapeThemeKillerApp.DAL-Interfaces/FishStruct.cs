@@ -6,10 +6,10 @@ namespace AquascapeThemeKillerApp.DAL_Interfaces
 {
     public struct FishStruct
     {
-        public int FishId { get; private set; }
-        public string FishName { get; private set; }
-        public int FishType { get; private set; }
-        public int FishSize { get; private set; }
+        public int FishId { get; set; }
+        public string FishName { get; set; }
+        public int FishType { get; set; }
+        public int FishSize { get; set; }
 
 
         public FishStruct(int fishId, string fishName, int fishType, int fishSize)

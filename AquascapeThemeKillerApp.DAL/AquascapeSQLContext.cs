@@ -121,7 +121,7 @@ namespace AquascapeThemeKillerApp.DAL
 
                         if (!aquascapeRead)
                         {
-                            AquascapeStruct = new AquascapeStruct(FishInAquarium, PlantsInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
+                            AquascapeStruct = new AquascapeStruct(PlantsInAquarium, FishInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
                             aquascapeRead = true;
                         }
                     }

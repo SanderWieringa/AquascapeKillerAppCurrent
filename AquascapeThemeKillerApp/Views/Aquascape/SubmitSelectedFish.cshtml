@@ -4,13 +4,9 @@
     ViewData["Title"] = "AquascapeDetails";
 }
 
-<h2>ToDo: AddFish</h2>
-<h2>ToDo: AddPlant</h2>
-
 <h2>Assembled Aquascape</h2>
 
 <div>
-    <h4>AquascapeModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -24,7 +20,7 @@
 
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.EditorFor(model => model.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Difficulty)
@@ -50,24 +46,27 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.PlantsInAquarium)
+    @if (Model.PlantsInAquarium != null)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlantId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlantName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Difficulty)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+        @foreach (var item in Model.PlantsInAquarium)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlantId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Difficulty)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                </td>
+            </tr>
+        }
     }
     </tbody>
 </table>
@@ -94,27 +93,29 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.FishInAquarium)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FishId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FishName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FishType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FishSize)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+    @if(Model.FishInAquarium != null) { 
+        @foreach (var item in Model.FishInAquarium)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FishId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FishName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FishType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FishSize)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                </td>
+            </tr>
+        }
     }
     </tbody>
 </table>

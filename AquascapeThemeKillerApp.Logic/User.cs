@@ -15,13 +15,9 @@ namespace AquascapeThemeKillerApp.Logic
 
         private IAquascapeRepository _aquascapeRepository = AquascapeDALFactory.CreateAquascapeRepository();
 
-        
-
-        
         public int UserId { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
-        
 
         public User(int userId, string userName, string password)
         {
@@ -102,9 +98,9 @@ namespace AquascapeThemeKillerApp.Logic
 
         public void AddAquascape(AquascapeModel aquascapeModel)
         {
-            var aquaScape = new Aquascape(aquascapeModel);
+            var aquascape = new Aquascape(aquascapeModel);
 
-            _userRepository.AddAquascape(aquaScape.Convert(aquaScape));
+            _userRepository.AddAquascape(aquascape.Convert(aquascape));
         }
 
         public List<IAquascape> GetAllAquascapes()
@@ -128,8 +124,6 @@ namespace AquascapeThemeKillerApp.Logic
             
         }
 
-        
-
         public AquascapeModel GetAquascapeById(int aquascapeId)
         {
             return ConvertToAquascapeModel(_userRepository.GetAquascapeById(aquascapeId));
@@ -141,7 +135,5 @@ namespace AquascapeThemeKillerApp.Logic
         {
             throw new NotImplementedException();
         }
-
-        
     }
 }

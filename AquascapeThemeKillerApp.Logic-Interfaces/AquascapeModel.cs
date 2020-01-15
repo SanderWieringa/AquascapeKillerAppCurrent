@@ -7,7 +7,6 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
 {
     public class AquascapeModel
     {
-        //[JsonConverter(typeof(ConcreteTypeConverter<PlantModel>))]
         public List<PlantModel> PlantsInAquarium { get; set; }
         public List<FishModel> FishInAquarium { get; set; }
         public int AquascapeId { get; set; }

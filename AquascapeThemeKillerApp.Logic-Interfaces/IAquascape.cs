@@ -6,8 +6,8 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
 {
     public interface IAquascape
     {
-        List<PlantModel> PlantsInAquarium { get; }
-        List<FishModel> FishInAquarium { get; }
+        List<PlantModel> PlantsInAquarium { get; set; }
+        List<FishModel> FishInAquarium { get; set; }
         int AquascapeId { get; set; }
         string Name { get; set; }
         int Difficulty { get; set; }

@@ -6,8 +6,8 @@ namespace AquascapeThemeKillerApp.Logic_Interfaces
 {
     public interface IAquascapeAssembler
     {
-        AquascapeModel AssemblePlants(List<IPlant> selectedPlants);
-        AquascapeModel AssembleFishes(List<IFish> selectedFishes);
+        AquascapeModel AssemblePlants(List<IPlant> selectedPlants, AquascapeModel sessionAquascapeModel);
+        AquascapeModel AssembleFishes(List<IFish> selectedFishes, AquascapeModel sessionAquascapeModel);
         AquascapeModel CreateAquascape();
         string AssembleAquascape(List<object> list);
     }

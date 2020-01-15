@@ -18,6 +18,7 @@ namespace AquascapeThemeKillerApp.Controllers
         private readonly IFishCollection _fishCollectionLogic = FishLogicFactory.CreateFishCollection();
         private readonly IAquascapeAssembler _aquascapeLogic = AquascapeLogicFactory.CreateAquascapeAssembler();
         private readonly IAquascapeCollection _aquascapeCollection = AquascapeLogicFactory.CreateAquascapeCollection();
+        private AquascapeModel _aquascapeModel;
 
         private AquascapeItemSelectionViewModel _model;
 
@@ -100,46 +101,99 @@ namespace AquascapeThemeKillerApp.Controllers
             return View(model);
         }
 
+        //[HttpPost]
+        //public ActionResult SubmitItem(object obj)
+        //{
+        //    if ((Type)obj == typeof(AquascapeItemSelectionViewModel))
+        //    {
+        //        SubmitSelectedFish(obj as AquascapeItemSelectionViewModel);
+        //    }
+        //}
+
         [HttpPost]
         public ActionResult SubmitSelectedFish(AquascapeItemSelectionViewModel model)
         {
-            var selectedIds = model.GetSelectedFishIds();
-
-            var selectedFishes = (from fish in _fishCollectionLogic.GetAllFishes()
-                                  where selectedIds.Contains(fish.FishId)
-                                  select fish).ToList();
-             
-            AquascapeModel aquascapeModel = _aquascapeLogic.AssembleFishes(selectedFishes);
-
-            foreach (var fish in HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject").FishInAquarium)
+            try
             {
-                aquascapeModel.FishInAquarium.Add(fish);
-            }
-             
-            HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
+                var selectedIds = model.GetSelectedFishIds();
 
-            return View(aquascapeModel);
+                var selectedFishes = (from fish in _fishCollectionLogic.GetAllFishes()
+                    where selectedIds.Contains(fish.FishId)
+                    select fish).ToList();
+
+                AquascapeModel sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
+                //sessionAquascapeModel.Name = "aiids";
+                //sessionAquascapeModel.FishInAquarium.Add(new FishModel(100, "Tetra", 3, 1));
+                _aquascapeModel = _aquascapeLogic.AssembleFishes(selectedFishes, sessionAquascapeModel);
+
+                //foreach (FishModel fish in sessionAquascapeModel.FishInAquarium)
+                //{
+                //    aquascapeModel.FishInAquarium.Add(fish);
+                //}
+                //foreach (PlantModel plant in sessionAquascapeModel.PlantsInAquarium)
+                //{
+                //    aquascapeModel.PlantsInAquarium.Add(plant);
+                //}
+
+                HttpContext.Session.SetObject("AquascapeObject", _aquascapeModel);
+
+
+                return View(_aquascapeModel);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e);
+                return View(_aquascapeModel);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return View(_aquascapeModel);
+            }
+            
         }
 
         [HttpPost]
         public ActionResult SubmitSelectedPlant(AquascapeItemSelectionViewModel model)
         {
-            var selectedIds = model.GetSelectedPlantIds();
-
-            var selectedPlants = (from plant in _plantCollectionLogic.GetAllPlants()
-                                  where selectedIds.Contains(plant.PlantId)
-                                  select plant).ToList();
-            
-            AquascapeModel aquascapeModel= _aquascapeLogic.AssemblePlants(selectedPlants);
-
-            foreach (PlantModel plant in HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject").PlantsInAquarium)
+            try
             {
-                aquascapeModel.PlantsInAquarium.Add(plant);
+                var selectedIds = model.GetSelectedPlantIds();
+
+                var selectedPlants = (from plant in _plantCollectionLogic.GetAllPlants()
+                    where selectedIds.Contains(plant.PlantId)
+                    select plant).ToList();
+
+                AquascapeModel sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
+                _aquascapeModel = _aquascapeLogic.AssemblePlants(selectedPlants, sessionAquascapeModel);
+
+                //aquascapeModel.Name = sessionAquascapeModel.Name;
+                //aquascapeModel.Difficulty = sessionAquascapeModel.Difficulty;
+
+                //foreach (PlantModel plant in sessionAquascapeModel.PlantsInAquarium)
+                //{
+                //    aquascapeModel.PlantsInAquarium.Add(plant);
+                //}
+                //foreach (FishModel fish in sessionAquascapeModel.FishInAquarium)
+                //{
+                //    aquascapeModel.FishInAquarium.Add(fish);
+                //}
+
+                HttpContext.Session.SetObject("AquascapeObject", _aquascapeModel);
+
+                return View(_aquascapeModel);
             }
-
-            HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
-
-            return View(aquascapeModel);
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e);
+                return View(_aquascapeModel);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return View(_aquascapeModel);
+            }
+            
         }
 
         [HttpPost]

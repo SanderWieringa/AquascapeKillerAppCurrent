@@ -15,8 +15,8 @@ namespace AquascapeThemeKillerApp.DAL
 
         private void PrefillAquascapeList()
         {
-            _aquascapeStructs.Add(new AquascapeStruct(_fishStructs, _plantStructs, 1, "Name", 4));
-            _aquascapeStructs.Add(new AquascapeStruct(_fishStructs, _plantStructs, 2, "Name", 4));
+            _aquascapeStructs.Add(new AquascapeStruct(_plantStructs, _fishStructs, 1, "Name", 4));
+            _aquascapeStructs.Add(new AquascapeStruct(_plantStructs, _fishStructs, 2, "Name", 4));
         }
 
         private void PrefillAquascapePlantList()

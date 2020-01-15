@@ -14,8 +14,10 @@ namespace AquascapeThemeKillerApp.Logic
         private readonly IPlantCollectionRepository _plantCollectionRepository = PlantDalFactory.CreatePlantCollectionRepository();
         private readonly IFishCollectionRepository _fishCollectionRepository = FishDalFactory.CreateFishCollectionRepository();
 
-        public List<PlantModel> PlantsInAquarium { get; } = new List<PlantModel>();
-        public List<FishModel> FishInAquarium { get; } = new List<FishModel>();
+        //public List<PlantModel> PlantsInAquarium { get; } = new List<PlantModel>();
+        //public List<FishModel> FishInAquarium { get; } = new List<FishModel>();
+        public List<PlantModel> PlantsInAquarium { get; set; }
+        public List<FishModel> FishInAquarium { get; set; }
         public int AquascapeId { get; set; }
         public string Name { get; set; }
         public int Difficulty { get; set; }
@@ -30,26 +32,28 @@ namespace AquascapeThemeKillerApp.Logic
             this._aquascapeRepository = aquascapeRepository;
         }
 
-        public Aquascape(int aquascapeId, string name, int difficulty)
+        public Aquascape(List<PlantModel> plantsInAquarium, List<FishModel> fishModels, int aquascapeId, string name, int difficulty)
         {
+            PlantsInAquarium = plantsInAquarium;
+            FishInAquarium = fishModels;
             AquascapeId = aquascapeId;
             Name = name;
             Difficulty = difficulty;
         }
         
-        public Aquascape(AquascapeStruct aquascapeStruct) : this(aquascapeStruct.AquascapeId, aquascapeStruct.Name, aquascapeStruct.Difficulty)
+        public Aquascape(AquascapeStruct aquascapeStruct) : this(ConvertPlantStructs(aquascapeStruct.PlantsInAquarium), ConvertFishStructs(aquascapeStruct.FishInAquarium), aquascapeStruct.AquascapeId, aquascapeStruct.Name, aquascapeStruct.Difficulty)
         {
 
         }
 
-        public Aquascape(AquascapeModel aquascapeModel) : this(aquascapeModel.AquascapeId, aquascapeModel.Name, aquascapeModel.Difficulty)
+        public Aquascape(AquascapeModel aquascapeModel) : this(aquascapeModel.PlantsInAquarium, aquascapeModel.FishInAquarium, aquascapeModel.AquascapeId, aquascapeModel.Name, aquascapeModel.Difficulty)
         {
 
         }
 
         public AquascapeStruct Convert(IAquascape aquascape)
         {
-            return new AquascapeStruct(null, null, aquascape.AquascapeId, aquascape.Name, aquascape.Difficulty);
+            return new AquascapeStruct(ConvertPlantModels(aquascape.PlantsInAquarium), ConvertFishModels(aquascape.FishInAquarium), aquascape.AquascapeId, aquascape.Name, aquascape.Difficulty);
         }
 
         public void UpdateAquascape(AquascapeModel aquascapeModel)
@@ -92,6 +96,69 @@ namespace AquascapeThemeKillerApp.Logic
                 return new List<FishModel>();
             }
             
+        }
+
+        private static List<PlantModel> ConvertPlantStructs(List<PlantStruct> plantStructs)
+        {
+            List<PlantModel> plantModels = new List<PlantModel>();
+
+            foreach (PlantStruct plant in plantStructs)
+            {
+                plantModels.Add(new PlantModel(new Plant(plant)));
+            }
+
+            return plantModels;
+        }
+
+        private static List<FishModel> ConvertFishStructs(List<FishStruct> fishStructs)
+        {
+            List<FishModel> fishModels = new List<FishModel>();
+
+            foreach (FishStruct fish in fishStructs)
+            {
+                fishModels.Add(new FishModel(new Fish(fish)));
+            }
+
+            return fishModels;
+        }
+
+        private static List<PlantStruct> ConvertPlantModels(List<PlantModel> plantModels)
+        {
+            var plantStructs = new List<PlantStruct>();
+
+            foreach (PlantModel plant in plantModels)
+            {
+                PlantStruct plantStruct = new PlantStruct
+                {
+                    PlantId = plant.PlantId,
+                    PlantName = plant.PlantName,
+                    Difficulty = plant.Difficulty
+                };
+
+                plantStructs.Add(plantStruct);
+            }
+
+            return plantStructs;
+        }
+
+        private static List<FishStruct> ConvertFishModels(List<FishModel> fishModels)
+        {
+            var fishStructs = new List<FishStruct>();
+
+            foreach (FishModel fish in fishModels)
+            {
+                FishStruct fishStruct = new FishStruct
+                {
+                    FishId = fish.FishId,
+                    FishName = fish.FishName,
+                    FishType = fish.FishType,
+                    FishSize = fish.FishSize
+                };
+
+                fishStructs.Add(fishStruct);
+            }
+
+            return fishStructs;
         }
     }
 }
