@@ -7,23 +7,11 @@ using AquascapeThemeKillerApp.DAL_Interfaces;
 
 namespace AquascapeThemeKillerApp.DAL
 {
-    //public enum FishType
-    //{
-    //    Herbivore,
-    //    Carnivore
-    //}
-
-    //public enum FishSize
-    //    small = 1,
-    //    medium = 3,
-    //    big = 5
-    //}
-
     public class AquascapeSQLContext : IAquascapeContext
     {
-        private AquascapeStruct AquascapeStruct;
-        public List<PlantStruct> PlantsInAquarium { get; } = new List<PlantStruct>();
-        public List<FishStruct> FishInAquarium { get; } = new List<FishStruct>();
+        private AquascapeStruct _aquascapeStruct;
+        private List<PlantStruct> _plantsInAquarium/* { get; } = new List<PlantStruct>()*/;
+        private List<FishStruct> _fishInAquarium/* { get; } = new List<FishStruct>()*/;
         public List<AquascapeStruct> AquascapeStructList { get; } = new List<AquascapeStruct>();
         private SqlConnection _conn;
         private const string ConnectionString = "Server=mssql.fhict.local;Database=dbi365250;User Id=dbi365250;Password=Kcw0hI3FHW;";
@@ -74,16 +62,47 @@ namespace AquascapeThemeKillerApp.DAL
 
         public List<AquascapeStruct> GetAllAquascapes()
         {
+            var aquascapeId = 0;
+
             using (GetConnection())
             {
                 _conn.Open();
                 var cmd = new SqlCommand("SP_GetAllAquascape", _conn) { CommandType = CommandType.StoredProcedure };
-                using (var reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
+                    
                     while (reader.Read())
                     {
+                        if (aquascapeId != reader.GetInt32(0))
+                        {
+                            _plantsInAquarium = new List<PlantStruct>();
+                            _fishInAquarium = new List<FishStruct>();
+                            AquascapeStructList.Add(new AquascapeStruct(_plantsInAquarium, _fishInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
+                            aquascapeId = reader.GetInt32(0);
+                        }
+
                         // ToDo: fill in plants and fishes
-                        AquascapeStructList.Add(new AquascapeStruct(PlantsInAquarium, FishInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
+                        if (!reader.IsDBNull(7))
+                        {
+                            if (!_plantsInAquarium.Exists(plant => plant.PlantId == reader.GetInt32(7)))
+                            {
+                                _plantsInAquarium.Add(new PlantStruct(reader.GetInt32(7), reader.GetString(8), reader.GetInt32(9)));
+                            }
+                        }
+                        if (!reader.IsDBNull(3))
+                        {
+                            if (!_fishInAquarium.Exists(fish => fish.FishId == reader.GetInt32(3)))
+                            {
+                                _fishInAquarium.Add(new FishStruct(reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5), reader.GetInt32(6)));
+                            }
+                        }
+
+                        
+                        else if (reader.GetInt32(0) > aquascapeId)
+                        {
+                            AquascapeStructList.Add(new AquascapeStruct(_plantsInAquarium, _fishInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
+                            aquascapeId = reader.GetInt32(0);
+                        }
                     }
                 }
             }
@@ -100,29 +119,38 @@ namespace AquascapeThemeKillerApp.DAL
                 var cmd = new SqlCommand("SP_GetAquascapeById", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
 
-                using (var reader = cmd.ExecuteReader())
+                _plantsInAquarium = new List<PlantStruct>();
+                _fishInAquarium = new List<FishStruct>();
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        if (!PlantsInAquarium.Exists(plant => plant.PlantId == reader.GetInt32(7)))
+                        if (!reader.IsDBNull(7))
                         {
-                            PlantsInAquarium.Add(new PlantStruct(reader.GetInt32(7), reader.GetString(8), reader.GetInt32(9)));
+                            if (!_plantsInAquarium.Exists(plant => plant.PlantId == reader.GetInt32(7)))
+                            {
+                                _plantsInAquarium.Add(new PlantStruct(reader.GetInt32(7), reader.GetString(8),
+                                    reader.GetInt32(9)));
+                            }
                         }
-
-                        if (!FishInAquarium.Exists(fish => fish.FishId == reader.GetInt32(3)))
+                        if (!reader.IsDBNull(3))
                         {
-                            FishInAquarium.Add(new FishStruct(reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5), reader.GetInt32(6)));
+                            if (!_fishInAquarium.Exists(fish => fish.FishId == reader.GetInt32(3)))
+                            {
+                                _fishInAquarium.Add(new FishStruct(reader.GetInt32(3), reader.GetString(4),
+                                    reader.GetInt32(5), reader.GetInt32(6)));
+                            }
                         }
 
                         if (!aquascapeRead)
                         {
-                            AquascapeStruct = new AquascapeStruct(PlantsInAquarium, FishInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
+                            _aquascapeStruct = new AquascapeStruct(_plantsInAquarium, _fishInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
                             aquascapeRead = true;
                         }
                     }
                 }
             }
-            return AquascapeStruct;
+            return _aquascapeStruct;
         }
 
         public AquascapeStruct GetAquascapeByStyle()
@@ -132,39 +160,41 @@ namespace AquascapeThemeKillerApp.DAL
 
         public List<PlantStruct> GetAllPlantsByAquascape(int aquascapeId)
         {
+            _plantsInAquarium = new List<PlantStruct>();
             using (GetConnection())
             {
                 _conn.Open();
                 var cmd = new SqlCommand("SP_GetAllPlantsInAquascape", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
-                using (var reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        PlantsInAquarium.Add(new PlantStruct(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
+                        _plantsInAquarium.Add(new PlantStruct(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
                     }
                 }
             }
-            return PlantsInAquarium;
+            return _plantsInAquarium;
         }
 
         public List<FishStruct> GetAllFishByAquascape(int aquascapeId)
         {
+            _fishInAquarium = new List<FishStruct>();
             using (GetConnection())
             {
                 _conn.Open();
                 var cmd = new SqlCommand("[SP_GetAllFishInAquascape]", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@aquascapeId", aquascapeId);
-                using (var reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        FishInAquarium.Add(new FishStruct(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3)));
+                        _fishInAquarium.Add(new FishStruct(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3)));
                     }
                 }
             }
-            return FishInAquarium;
+            return _fishInAquarium;
         }
     }
 }
