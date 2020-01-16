@@ -25,7 +25,7 @@ namespace AquascapeThemeKillerApp.Logic
                 }
             }
 
-            return new AquascapeModel(_aquascape);
+            return new AquascapeModel(new Aquascape(sessionAquascapeModel));
         }
 
         public AquascapeModel AssembleFishes(List<IFish> selectedFishes, AquascapeModel sessionAquascapeModel)

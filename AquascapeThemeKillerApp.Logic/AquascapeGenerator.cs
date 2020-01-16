@@ -40,7 +40,7 @@ namespace AquascapeThemeKillerApp.Logic
         {
             var fishCollection = new FishCollection(_fishCollectionRepository);
             var plantCollection = new PlantCollection(_plantCollectionRepository);
-            var aquascape = new Aquascape();
+            var aquascape = new Aquascape(new List<PlantModel>(), new List<FishModel>(), 0, "", 0);
             List<IPlant> plants = plantCollection.GetAllPlants();
             List<IFish> fishes = fishCollection.GetAllFishes();
 

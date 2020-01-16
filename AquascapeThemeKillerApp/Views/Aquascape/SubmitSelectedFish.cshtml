@@ -10,10 +10,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AquascapeId)
+            @Html.HiddenFor(model => model.AquascapeId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.AquascapeId)
+            @Html.HiddenFor(model => model.AquascapeId)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -35,9 +35,6 @@
     <thead>
     <tr>
         <th>
-            @Html.Label("PlantId")
-        </th>
-        <th>
             @Html.Label("PlantName")
         </th>
         <th>
@@ -52,7 +49,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PlantId)
+                    @Html.HiddenFor(modelItem => item.PlantId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PlantName)
@@ -79,9 +76,6 @@
     <thead>
     <tr>
         <th>
-            @Html.Label("FishId")
-        </th>
-        <th>
             @Html.Label("FishName")
         </th>
         <th>
@@ -98,7 +92,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FishId)
+                    @Html.HiddenFor(modelItem => item.FishId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FishName)

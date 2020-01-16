@@ -24,7 +24,6 @@ namespace AquascapeThemeKillerApp.Controllers
             return View();
         }
 
-
         public IActionResult CreateNewAquascape()
         {
             return RedirectToAction();

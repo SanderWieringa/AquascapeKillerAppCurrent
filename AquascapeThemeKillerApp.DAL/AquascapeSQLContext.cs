@@ -82,18 +82,13 @@ namespace AquascapeThemeKillerApp.DAL
                 {
                     while (reader.Read())
                     {
-                        AquascapeStructList.Add(new AquascapeStruct(null, null, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
+                        // ToDo: fill in plants and fishes
+                        AquascapeStructList.Add(new AquascapeStruct(PlantsInAquarium, FishInAquarium, reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
                     }
                 }
             }
             return AquascapeStructList;
         }
-
-        //public AquascapeStruct GetAquascapeById(int aquascapeId)
-        //{
-        //    AquascapeStruct aquascapestruct = new AquascapeStruct(GetAllFishByAquascape(aquascapeId), GetAllPlantsByAquascape(aquascapeId), GetAquascapeWithoutListById(aquascapeId).AquascapeId, GetAquascapeWithoutListById(aquascapeId).Name, GetAquascapeWithoutListById(aquascapeId).Difficulty);
-        //    return aquascapestruct;
-        //}
 
         public AquascapeStruct GetAquascapeById(int aquascapeId)
         {

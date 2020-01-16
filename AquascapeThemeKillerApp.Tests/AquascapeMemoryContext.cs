@@ -11,7 +11,7 @@ namespace AquascapeThemeKillerApp.DAL
         private readonly List<AquascapeStruct> _aquascapeStructs = new List<AquascapeStruct>();
         private readonly List<PlantStruct> _plantStructs = new List<PlantStruct>();
         private readonly List<FishStruct> _fishStructs = new List<FishStruct>();
-        private readonly AquascapeStruct _aquascape = new AquascapeStruct();
+        private readonly AquascapeStruct _aquascape = new AquascapeStruct(new List<PlantStruct>(), new List<FishStruct>(), 0, "", 0);
 
         private void PrefillAquascapeList()
         {
