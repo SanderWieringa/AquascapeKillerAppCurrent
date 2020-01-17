@@ -1,20 +1,13 @@
-﻿@model IEnumerable<AquascapeThemeKillerApp.Logic_Interfaces.PlantModel>
+﻿@using AquascapeThemeKillerApp.Logic_Interfaces
+@model IEnumerable<AquascapeThemeKillerApp.Logic_Interfaces.PlantModel>
 
 @{
     ViewData["Title"] = "GetAllPlants";
 }
 
-<h2>GetAllPlantss</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PlantId)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.PlantName)
             </th>
@@ -25,11 +18,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (PlantModel item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlantId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PlantName)
             </td>

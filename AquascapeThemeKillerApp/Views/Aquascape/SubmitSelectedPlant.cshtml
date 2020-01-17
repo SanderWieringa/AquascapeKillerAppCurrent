@@ -10,12 +10,6 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.HiddenFor(model => model.AquascapeId)
-            </dt>
-            <dd>
-                @Html.HiddenFor(model => model.AquascapeId)
-            </dd>
-            <dt>
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
             <dd>
@@ -46,18 +40,10 @@
             {
                 <tr>
                     <td>
-                        @Html.HiddenFor(modelItem => item.PlantId)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.PlantName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Difficulty)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                        @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                        @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
                     </td>
                 </tr>
             }
@@ -87,9 +73,6 @@
             {
                 <tr>
                     <td>
-                        @Html.HiddenFor(modelItem => item.FishId)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.FishName)
                     </td>
                     <td>
@@ -97,11 +80,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FishSize)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                        @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                        @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
                     </td>
                 </tr>
             }
@@ -115,7 +93,3 @@
 
     <input id="button" type="submit" value="Save" class="btn btn-default" />
 }
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>

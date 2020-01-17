@@ -4,121 +4,97 @@
     ViewData["Title"] = "AquascapeDetails";
 }
 
-<h2>Assembled Aquascape</h2>
+@using (Html.BeginForm("Create", "Aquascape", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
+{
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.EditorFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Difficulty)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Difficulty)
+            </dd>
+        </dl>
+    </div>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.HiddenFor(model => model.AquascapeId)
-        </dt>
-        <dd>
-            @Html.HiddenFor(model => model.AquascapeId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-
-        </dt>
-        <dd>
-            @Html.EditorFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Difficulty)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Difficulty)
-        </dd>
-    </dl>
-</div>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.Label("PlantName")
-        </th>
-        <th>
-            @Html.Label("Difficulty")
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    @if (Model.PlantsInAquarium != null)
-    {
-        @foreach (var item in Model.PlantsInAquarium)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.HiddenFor(modelItem => item.PlantId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlantName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Difficulty)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
-                </td>
+                <th>
+                    @Html.Label("PlantName")
+                </th>
+                <th>
+                    @Html.Label("Difficulty")
+                </th>
             </tr>
-        }
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @if (Model.PlantsInAquarium != null)
+            {
+                @foreach (var item in Model.PlantsInAquarium)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PlantName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Difficulty)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 
-<a href="@Url.Action("AddPlant","Aquascape", new { id = Model.AquascapeId })">
-    <input type="button" name="operation" value="Add Plants" />
-</a>
+    <a href="@Url.Action("AddPlant","Aquascape", new { id = Model.AquascapeId })">
+        <input type="button" name="operation" value="Add Plants" />
+    </a>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.Label("FishName")
-        </th>
-        <th>
-            @Html.Label("FishType")
-        </th>
-        <th>
-            @Html.Label("FishSize")
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    @if(Model.FishInAquarium != null) { 
-        @foreach (var item in Model.FishInAquarium)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.HiddenFor(modelItem => item.FishId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FishSize)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
-                </td>
+                <th>
+                    @Html.Label("FishName")
+                </th>
+                <th>
+                    @Html.Label("FishType")
+                </th>
+                <th>
+                    @Html.Label("FishSize")
+                </th>
             </tr>
-        }
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @if (Model.FishInAquarium != null)
+            {
+                @foreach (var item in Model.FishInAquarium)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FishName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FishType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FishSize)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 
-<a href="@Url.Action("AddFish","Aquascape", new { id = Model.AquascapeId })">
-    <input type="button" name="operation" value="Add Fishes" />
-</a>
+    <a href="@Url.Action("AddFish","Aquascape", new { id = Model.AquascapeId })">
+        <input type="button" name="operation" value="Add Fishes" />
+    </a>
 
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <input id="button" type="submit" value="Save" class="btn btn-default" />
+}

@@ -4,14 +4,9 @@
     ViewData["Title"] = "AssembleAquascape";
 }
 
-<h2>AssembleAquascape</h2>
-
 <table class="table">
     <thead>
     <tr>
-        <th>
-            @Html.Label("PlantId")
-        </th>
         <th>
             @Html.Label("PlantName")
         </th>
@@ -25,18 +20,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PlantId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.PlantName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Difficulty)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
             </td>
         </tr>
     }
@@ -46,9 +33,6 @@
 <table class="table">
     <thead>
     <tr>
-        <th>
-            @Html.Label("FishId")
-        </th>
         <th>
             @Html.Label("FishName")
         </th>
@@ -65,9 +49,6 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FishId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.FishName)
             </td>
             <td>
@@ -75,11 +56,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FishSize)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
             </td>
         </tr>
     }

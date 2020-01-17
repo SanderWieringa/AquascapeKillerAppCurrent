@@ -3,19 +3,9 @@
 @{
     ViewData["Title"] = "GetAllAquascapes";
 }
-
-<h2>GetAllAquascapes</h2>
-
-<p>
-    @*<a asp-action="CreateNewAquascape">Create New Aquascape</a>*@
-    @*<button href="@Url.Action("Index","User", new { id = Model.ElementAt() })">></button>*@
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AquascapeId)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -29,22 +19,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.AquascapeId)
-                <a href="@Url.Action("AquascapeDetails","Home", new { id = item.AquascapeId })">
-                </a>
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
-                @*<a href="@Url.Action("AquascapeDetails","Home", new { id = item.aquascapeId })">
-                </a>*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Difficulty)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("AquascapeDetails", "AquascapeDetails", new { id=item.AquascapeId }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("AquascapeDetails", "AquascapeDetails", new { id=item.AquascapeId }) 
             </td>
         </tr>
 }

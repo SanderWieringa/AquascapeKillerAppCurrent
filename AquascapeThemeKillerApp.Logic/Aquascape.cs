@@ -29,7 +29,7 @@ namespace AquascapeThemeKillerApp.Logic
 
         public Aquascape(IAquascapeRepository aquascapeRepository)
         {
-            this._aquascapeRepository = aquascapeRepository;
+            _aquascapeRepository = aquascapeRepository;
         }
 
         public Aquascape(List<PlantModel> plantsInAquarium, List<FishModel> fishModels, int aquascapeId, string name, int difficulty)
@@ -65,6 +65,8 @@ namespace AquascapeThemeKillerApp.Logic
         {
             try
             {
+                PlantsInAquarium = new List<PlantModel>();
+
                 foreach (PlantStruct plant in _aquascapeRepository.GetAllPlantsByAquascape(aquascapeId))
                 {
                     PlantsInAquarium.Add(new PlantModel(new Plant(plant)));
@@ -84,6 +86,8 @@ namespace AquascapeThemeKillerApp.Logic
         {
             try
             {
+                FishInAquarium = new List<FishModel>();
+
                 foreach (FishStruct fish in _aquascapeRepository.GetAllFishByAquascape(aquascapeId))
                 {
                     FishInAquarium.Add(new FishModel(new Fish(fish)));
@@ -151,7 +155,7 @@ namespace AquascapeThemeKillerApp.Logic
                 {
                     FishId = fish.FishId,
                     FishName = fish.FishName,
-                    FishType = fish.FishType,
+                    FishType = (int)fish.FishType,
                     FishSize = fish.FishSize
                 };
 

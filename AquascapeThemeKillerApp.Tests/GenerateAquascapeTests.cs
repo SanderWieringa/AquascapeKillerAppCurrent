@@ -25,7 +25,7 @@ namespace AquascapeThemeKillerApp.Tests
             _plantCollection.AddPlant(new PlantModel(1, "Echonodorus", 2));
             _plantCollection.AddPlant(new PlantModel(2, "Echonodorus", 2)); 
             _plantCollection.AddPlant(new PlantModel(3, "Echonodorus", 2));
-            _fishCollection.AddFish(new FishModel(1, "Tetra", 3, 5));
+            _fishCollection.AddFish(new FishModel(1, "Tetra", FishType.Normal, 5));
 
             var plantsInAquascape = new List<PlantModel>
             {
@@ -35,7 +35,7 @@ namespace AquascapeThemeKillerApp.Tests
             };
             var fishInAquascape = new List<FishModel>
             {
-                new FishModel(1, "Tetra", 3, 5)
+                new FishModel(1, "Tetra", FishType.Normal, 5)
             };
 
             AquascapeModel actualAquascape = generator.GenerateAquascape();
@@ -57,8 +57,8 @@ namespace AquascapeThemeKillerApp.Tests
             _plantCollection.AddPlant(new PlantModel(4, "Echonodorus", 2));
             _plantCollection.AddPlant(new PlantModel(5, "Echonodorus", 2));
             _plantCollection.AddPlant(new PlantModel(6, "Echonodorus", 2));
-            _fishCollection.AddFish(new FishModel(1, "Tetra", 3, 5));
-            _fishCollection.AddFish(new FishModel(2, "Tetra", 3, 5));
+            _fishCollection.AddFish(new FishModel(1, "Tetra", FishType.Normal, 5));
+            _fishCollection.AddFish(new FishModel(2, "Tetra", FishType.Normal, 5));
 
             var plantsInAquascape = new List<PlantModel>
             {
@@ -71,8 +71,8 @@ namespace AquascapeThemeKillerApp.Tests
             };
             var fishInAquascape = new List<FishModel>
             {
-                new FishModel(1, "Tetra", 3, 5),
-                new FishModel(2, "Tetra", 3, 5)
+                new FishModel(1, "Tetra", FishType.Normal, 5),
+                new FishModel(2, "Tetra", FishType.Normal, 5)
             };
 
             AquascapeModel actualAquascape = generator.GenerateAquascape();
@@ -97,9 +97,9 @@ namespace AquascapeThemeKillerApp.Tests
             _plantCollection.AddPlant(new PlantModel(7, "Echonodorus", 2));
             _plantCollection.AddPlant(new PlantModel(8, "Echonodorus", 2));
             _plantCollection.AddPlant(new PlantModel(9, "Echonodorus", 2));
-            _fishCollection.AddFish(new FishModel(1, "Tetra", 3, 5));
-            _fishCollection.AddFish(new FishModel(2, "Tetra", 3, 5));
-            _fishCollection.AddFish(new FishModel(3, "Tetra", 3, 5));
+            _fishCollection.AddFish(new FishModel(1, "Tetra", FishType.Normal, 5));
+            _fishCollection.AddFish(new FishModel(2, "Tetra", FishType.Normal, 5));
+            _fishCollection.AddFish(new FishModel(3, "Tetra", FishType.Normal, 5));
 
             var plantsInAquascape = new List<PlantModel>
             {
@@ -115,9 +115,9 @@ namespace AquascapeThemeKillerApp.Tests
             };
             var fishInAquascape = new List<FishModel>
             {
-                new FishModel(1, "Tetra", 3, 5),
-                new FishModel(2, "Tetra", 3, 5),
-                new FishModel(3, "Tetra", 3, 5)
+                new FishModel(1, "Tetra", FishType.Normal, 5),
+                new FishModel(2, "Tetra", FishType.Normal, 5),
+                new FishModel(3, "Tetra", FishType.Normal, 5)
             };
 
             AquascapeModel actualAquascape = generator.GenerateAquascape();
@@ -138,8 +138,8 @@ namespace AquascapeThemeKillerApp.Tests
             _plantCollection.AddPlant(new PlantModel(3, "Echonodorus", 2));
             _plantCollection.AddPlant(new PlantModel(4, "Echonodorus", 2));
             _plantCollection.AddPlant(new PlantModel(5, "Echonodorus", 2));
-            _fishCollection.AddFish(new FishModel(1, "Tetra", 3, 5));
-            _fishCollection.AddFish(new FishModel(2, "Tetra", 3, 5));
+            _fishCollection.AddFish(new FishModel(1, "Tetra", FishType.Normal, 5));
+            _fishCollection.AddFish(new FishModel(2, "Tetra", FishType.Normal, 5));
 
             var plantsInAquascape = new List<PlantModel>
             {
@@ -151,7 +151,7 @@ namespace AquascapeThemeKillerApp.Tests
             };
             var fishInAquascape = new List<FishModel>
             {
-                new FishModel(1, "Tetra", 3, 5)
+                new FishModel(1, "Tetra", FishType.Normal, 5)
             };
 
             AquascapeModel actualAquascape = generator.GenerateAquascape();

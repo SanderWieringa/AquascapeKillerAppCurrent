@@ -11,8 +11,8 @@ namespace AquascapeThemeKillerApp.Tests
     [TestClass]
     public class UserTest
     {
-        private readonly IAquascapeCollectionRepository _aquascapeMemoryCollectionDal = TestFactory.CreateMemoryAquascapeCollectionDAL();
-        private readonly IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDAL();
+        private readonly IAquascapeCollectionRepository _aquascapeMemoryCollectionDal = TestFactory.CreateMemoryAquascapeCollectionDal();
+        private readonly IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDal();
         public List<PlantModel> PlantsInAquarium { get; } = new List<PlantModel>();
         public List<FishModel> FishInAquarium { get; } = new List<FishModel>();
 
@@ -30,6 +30,8 @@ namespace AquascapeThemeKillerApp.Tests
         public void AddAquascapeTest()
         {
             // Arrange
+            PlantsInAquarium.Add(new PlantModel(1, "Echinodorus", 2));
+            FishInAquarium.Add(new FishModel(1, "Tetra", 3, 1));
             var aquascapeModel = new AquascapeModel(PlantsInAquarium, FishInAquarium, 3, "The goodest aquascape1", 5);
 
             IAquascape testAquascape = new Aquascape(aquascapeModel);
@@ -46,6 +48,8 @@ namespace AquascapeThemeKillerApp.Tests
             Assert.AreEqual(lastAdded.AquascapeId, testAquascape.AquascapeId);
             Assert.AreEqual(lastAdded.Name, testAquascape.Name);
             Assert.AreEqual(lastAdded.Difficulty, testAquascape.Difficulty);
+            Assert.AreEqual(lastAdded.PlantsInAquarium[0].PlantId, testAquascape.PlantsInAquarium[0].PlantId);
+            Assert.AreEqual(lastAdded.FishInAquarium[0].FishId, testAquascape.FishInAquarium[0].FishId);
             Assert.IsTrue(aquascapes.Count == 3);
         }
 

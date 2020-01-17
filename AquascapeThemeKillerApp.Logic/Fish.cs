@@ -10,10 +10,10 @@ namespace AquascapeThemeKillerApp.Logic
     {
         public int FishId { get; set; }
         public string FishName { get; set; }
-        public int FishType { get; set; }
+        public FishType FishType { get; set; }
         public int FishSize { get; set; }
         
-        public Fish(int fishId, string fishName, int fishType, int fishSize)
+        public Fish(int fishId, string fishName, FishType fishType, int fishSize)
         {
             FishId = fishId;
             FishName = fishName;
@@ -26,10 +26,9 @@ namespace AquascapeThemeKillerApp.Logic
 
         }
 
-        public Fish(FishStruct fishStruct) : this(fishStruct.FishId, fishStruct.FishName, fishStruct.FishType, fishStruct.FishSize)
+        public Fish(FishStruct fishStruct) : this(fishStruct.FishId, fishStruct.FishName, (FishType)fishStruct.FishType, fishStruct.FishSize)
         {
 
         }
-
     }
 }

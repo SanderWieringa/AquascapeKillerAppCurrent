@@ -8,12 +8,12 @@ namespace AquascapeThemeKillerApp.Tests
 {
     public static class TestFactory
     {
-        public static IAquascapeCollectionRepository CreateMemoryAquascapeCollectionDAL()
+        public static IAquascapeCollectionRepository CreateMemoryAquascapeCollectionDal()
         {
             return new AquascapeRepository(new AquascapeMemoryContext());
         }
 
-        public static IAquascapeRepository CreateMemoryAquascapeDAL()
+        public static IAquascapeRepository CreateMemoryAquascapeDal()
         {
             return new AquascapeRepository(new AquascapeMemoryContext());
         }

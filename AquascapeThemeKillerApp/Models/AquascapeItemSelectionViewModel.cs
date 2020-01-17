@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AquascapeThemeKillerApp.Logic_Interfaces;
 
 namespace AquascapeThemeKillerApp.Models
 {
@@ -10,6 +11,8 @@ namespace AquascapeThemeKillerApp.Models
         public int AquascapeId { get; set; }
         public string AquascapeName { get; set; }
         public int Difficulty { get; set; }
+        public List<PlantModel> PlantsInAquarium { get; set; } = new List<PlantModel>();
+        public List<FishModel> FishInAquarium { get; set; } = new List<FishModel>();
         public List<SelectPlantEditorViewModel> Plants { get; set; }
         public List<SelectFishEditorViewModel> Fishes { get; set; }
 

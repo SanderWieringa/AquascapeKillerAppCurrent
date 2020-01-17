@@ -6,15 +6,9 @@
 
 <h2>GetAllFish</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FishId)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.FishName)
             </th>
@@ -30,9 +24,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FishId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FishName)
             </td>

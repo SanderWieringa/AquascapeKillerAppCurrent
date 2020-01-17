@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Amazon.Runtime;
 using AquascapeThemeKillerApp.Logic_Factory;
 using AquascapeThemeKillerApp.Logic_Interfaces;
 using AquascapeThemeKillerApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -168,17 +170,25 @@ namespace AquascapeThemeKillerApp.Controllers
             {
                 try
                 {
-                    _aquascapeCollection.AddAquascape(ConvertSelectionViewModel(model));
+                    _sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
+                    _aquascapeCollection.AddAquascape(_sessionAquascapeModel);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    throw;
+                    RedirectToAction("Error");
                 }
                 
             }
 
-            return default;
+            return RedirectToAction("SubmitSelectedPlant");
+        }
+
+        [AllowAnonymous]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel
+                { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         private static AquascapeModel ConvertSelectionViewModel(AquascapeItemSelectionViewModel model)

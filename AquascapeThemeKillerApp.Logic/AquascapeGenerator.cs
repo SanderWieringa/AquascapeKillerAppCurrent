@@ -64,7 +64,7 @@ namespace AquascapeThemeKillerApp.Logic
 
         public bool TryAddPlant(Plant plantToFill, Aquascape aquascape)
         {
-            if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(1)))
+            if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(FishType.Herbivore)))
             {
                 return false;
             }
@@ -75,18 +75,16 @@ namespace AquascapeThemeKillerApp.Logic
         
         public bool TryAddFish(Fish fishToFill, Aquascape aquascape)
         {
-            // FishType 2 equals Carnivore
-            if (fishToFill.FishType.Equals(2))
+            if (fishToFill.FishType.Equals(FishType.Carnivore))
             {
-                if ((aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(1)) || aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(3))) && aquascape.FishInAquarium.Any(fish => fish.FishSize < fishToFill.FishSize))
+                if ((aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(FishType.Herbivore)) || aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(FishType.Normal))) && aquascape.FishInAquarium.Any(fish => fish.FishSize < fishToFill.FishSize))
                 {
                     return false;
                 }
             }
-            // FishType 1 equals Herbivore
-            if (fishToFill.FishType.Equals(1))
+            if (fishToFill.FishType.Equals(FishType.Herbivore))
             {
-                if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(2) && fish.FishSize > fishToFill.FishSize))
+                if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(FishType.Carnivore) && fish.FishSize > fishToFill.FishSize))
                 {
                     return false;
                 }
@@ -95,10 +93,9 @@ namespace AquascapeThemeKillerApp.Logic
                     return false;
                 }
             }
-            // FishType 3 equals Normal
-            if (fishToFill.FishType.Equals(3))
+            if (fishToFill.FishType.Equals(FishType.Normal))
             {
-                if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(2) && fish.FishSize > fishToFill.FishSize))
+                if (aquascape.FishInAquarium.Exists(fish => fish.FishType.Equals(FishType.Carnivore) && fish.FishSize > fishToFill.FishSize))
                 {
                     return false;
                 }

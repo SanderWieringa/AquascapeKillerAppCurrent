@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AquascapeThemeKillerApp.Logic;
 
 namespace AquascapeThemeKillerApp.Models
 {
@@ -10,7 +11,7 @@ namespace AquascapeThemeKillerApp.Models
         public bool Selected { get; set; }
         public int FishId { get; set; }
         public string FishName { get; set; }
-        public int FishType { get; set; }
+        public FishType FishType { get; set; }
         public int FishSize { get; set; }
     }
 }

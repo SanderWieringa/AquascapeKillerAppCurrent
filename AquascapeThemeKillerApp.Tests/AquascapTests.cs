@@ -11,8 +11,11 @@ namespace AquascapeThemeKillerApp.Tests
     [TestClass]
     public class AquascapTests
     {
-        private readonly IAquascapeCollectionRepository _aquascapeMemoryCollectionDal = TestFactory.CreateMemoryAquascapeCollectionDAL();
-        private readonly IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDAL();
+        private readonly IAquascapeCollectionRepository _aquascapeMemoryCollectionDal = TestFactory.CreateMemoryAquascapeCollectionDal();
+        private readonly IAquascapeRepository _aquascapeMemoryDal = TestFactory.CreateMemoryAquascapeDal();
+
+        private User _aquascapeCollection;
+        private Aquascape _aquascape;
 
         [TestMethod]
         public void GetAllPlantTest_ShouldReturnTwo()
@@ -24,11 +27,11 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void GetAllPlantsByAquascapeTest_ShouldReturnTwo()
         {
-            var aquascapeCollection = new User(_aquascapeMemoryCollectionDal);
-            var aquascape = new Aquascape(_aquascapeMemoryDal);
+            _aquascapeCollection = new User(_aquascapeMemoryCollectionDal);
+            _aquascape = new Aquascape(_aquascapeMemoryDal);
 
-            var aquascapeId = aquascapeCollection.GetAquascapeById(1).AquascapeId;
-            var actual = aquascape.GetAllPlantsByAquascape(aquascapeId).Count;
+            var aquascapeId = _aquascapeCollection.GetAquascapeById(1).AquascapeId;
+            var actual = _aquascape.GetAllPlantsByAquascape(aquascapeId).Count;
             const int expected = 2;
 
             Assert.AreEqual(expected, actual);
@@ -37,11 +40,11 @@ namespace AquascapeThemeKillerApp.Tests
         [TestMethod]
         public void GetAllFishesByAquascapeTest_ShouldReturnTwo()
         {
-            var aquascapeCollection = new User(_aquascapeMemoryCollectionDal);
-            var aquascape = new Aquascape(_aquascapeMemoryDal);
+            _aquascapeCollection = new User(_aquascapeMemoryCollectionDal);
+            _aquascape = new Aquascape(_aquascapeMemoryDal);
 
-            var aquascapeId = aquascapeCollection.GetAquascapeById(1).AquascapeId;
-            var actual = aquascape.GetAllFishByAquascape(aquascapeId).Count;
+            var aquascapeId = _aquascapeCollection.GetAquascapeById(1).AquascapeId;
+            var actual = _aquascape.GetAllFishByAquascape(aquascapeId).Count;
             const int expected = 2;
 
             Assert.AreEqual(expected, actual);

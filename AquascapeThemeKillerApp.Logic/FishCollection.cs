@@ -30,7 +30,7 @@ namespace AquascapeThemeKillerApp.Logic
 
         private FishStruct Convert(IFish fish)
         {
-            return new FishStruct(fish.FishId, fish.FishName, fish.FishType, fish.FishSize);
+            return new FishStruct(fish.FishId, fish.FishName, (int)fish.FishType, fish.FishSize);
         }
 
         public List<IFish> GetAllFishes()
