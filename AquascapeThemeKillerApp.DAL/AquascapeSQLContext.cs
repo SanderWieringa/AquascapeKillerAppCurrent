@@ -55,15 +55,14 @@ namespace AquascapeThemeKillerApp.DAL
                 var cmd = new SqlCommand("SP_InsertAquascape", _conn) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.AddWithValue("@AquascapeName", aquascapeStruct.Name);
                 cmd.Parameters.AddWithValue("@aquascapeDifficulty", aquascapeStruct.Difficulty);
-                foreach (PlantStruct plant in aquascapeStruct.PlantsInAquarium)
-                {
-                    cmd.Parameters.AddWithValue("@plantId", plant.PlantId);
-                }
+                
+                cmd.Parameters.AddWithValue("@plantId", aquascapeStruct.PlantsInAquarium[0].PlantId);
 
                 foreach (FishStruct fish in aquascapeStruct.FishInAquarium)
                 {
                     cmd.Parameters.AddWithValue("@fishId", fish.FishId);
                 }
+                
                 cmd.ExecuteNonQuery();
                 _conn.Close();
             }
