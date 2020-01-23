@@ -20,87 +20,127 @@ namespace AquascapeThemeKillerApp.Controllers
         private readonly IFishCollection _fishCollectionLogic = FishLogicFactory.CreateFishCollection();
         private readonly IAquascapeAssembler _aquascapeLogic = AquascapeLogicFactory.CreateAquascapeAssembler();
         private readonly IAquascapeCollection _aquascapeCollection = AquascapeLogicFactory.CreateAquascapeCollection();
-        private AquascapeModel _aquascapeModel;
-        private AquascapeModel _sessionAquascapeModel;
+        private AquascapeItemSelectionViewModel _aquascapeModel;
+        private AquascapeItemSelectionViewModel _sessionAquascapeModel;
         private AquascapeItemSelectionViewModel _model;
 
         public ActionResult Index()
         {
-            AquascapeModel aquascapeModel = _aquascapeLogic.CreateAquascape();
-            HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
+            try
+            {
+                AquascapeModel aquascapeModel = _aquascapeLogic.CreateAquascape();
+                HttpContext.Session.SetObject("AquascapeObject", aquascapeModel);
 
-            return View(aquascapeModel);
+                return View(aquascapeModel);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                ViewBag.Message = "Something went wrong! Try again later.";
+            }
+
+            return RedirectToAction("GetAllAquascapes", "Home");
         }
 
         public ActionResult AddPlant()
         {
-            _model = new AquascapeItemSelectionViewModel();
-
-            foreach (IPlant plant in _plantCollectionLogic.GetAllPlants())
+            try
             {
-                var editorViewModel = new SelectPlantEditorViewModel()
+                _model = new AquascapeItemSelectionViewModel();
+
+                foreach (IPlant plant in _plantCollectionLogic.GetAllPlants())
                 {
-                    Selected = false,
-                    PlantId = plant.PlantId,
-                    PlantName = plant.PlantName,
-                    Difficulty = plant.Difficulty
-                };
-                _model.Plants.Add(editorViewModel);
+                    var editorViewModel = new SelectPlantEditorViewModel()
+                    {
+                        Selected = false,
+                        PlantId = plant.PlantId,
+                        PlantName = plant.PlantName,
+                        Difficulty = plant.Difficulty
+                    };
+                    _model.Plants.Add(editorViewModel);
+                }
+
+                return View(_model);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                ViewBag.Message = "Something went wrong! Try again later.";
             }
 
-            return View(_model);
+            return RedirectToAction("GetAllAquascapes", "Home");
         }
 
         public ActionResult AddFish()
         {
-            _model = new AquascapeItemSelectionViewModel();
-
-            foreach (IFish fish in _fishCollectionLogic.GetAllFishes())
+            try
             {
-                var editorViewModel = new SelectFishEditorViewModel
+                _model = new AquascapeItemSelectionViewModel();
+
+                foreach (IFish fish in _fishCollectionLogic.GetAllFishes())
                 {
-                    Selected = false,
-                    FishId = fish.FishId,
-                    FishName = fish.FishName,
-                    FishType = fish.FishType,
-                    FishSize = fish.FishSize
-                };
-                _model.Fishes.Add(editorViewModel);
+                    var editorViewModel = new SelectFishEditorViewModel
+                    {
+                        Selected = false,
+                        FishId = fish.FishId,
+                        FishName = fish.FishName,
+                        FishType = fish.FishType,
+                        FishSize = fish.FishSize
+                    };
+                    _model.Fishes.Add(editorViewModel);
+                }
+
+                return View(_model);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                ViewBag.Message = "Something went wrong! Try again later.";
             }
 
-            return View(_model);
+            return RedirectToAction("GetAllAquascapes", "Home");
         }
 
         public ActionResult CreateAquascape()
         {
-            _model = new AquascapeItemSelectionViewModel();
-
-            foreach (IPlant plant in _plantCollectionLogic.GetAllPlants())
+            try
             {
-                var editorViewModel = new SelectPlantEditorViewModel()
+                _model = new AquascapeItemSelectionViewModel();
+
+                foreach (IPlant plant in _plantCollectionLogic.GetAllPlants())
                 {
-                    Selected = false,
-                    PlantId = plant.PlantId,
-                    PlantName = plant.PlantName,
-                    Difficulty = plant.Difficulty
-                };
-                _model.Plants.Add(editorViewModel);
+                    var editorViewModel = new SelectPlantEditorViewModel()
+                    {
+                        Selected = false,
+                        PlantId = plant.PlantId,
+                        PlantName = plant.PlantName,
+                        Difficulty = plant.Difficulty
+                    };
+                    _model.Plants.Add(editorViewModel);
+                }
+
+                foreach (IFish fish in _fishCollectionLogic.GetAllFishes())
+                {
+                    var editorViewModel = new SelectFishEditorViewModel
+                    {
+                        Selected = false,
+                        FishId = fish.FishId,
+                        FishName = fish.FishName,
+                        FishType = fish.FishType,
+                        FishSize = fish.FishSize
+                    };
+                    _model.Fishes.Add(editorViewModel);
+                }
+
+                return View(_model);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                ViewBag.Message = "Something went wrong! Try again later.";
             }
 
-            foreach (IFish fish in _fishCollectionLogic.GetAllFishes())
-            {
-                var editorViewModel = new SelectFishEditorViewModel
-                {
-                    Selected = false,
-                    FishId = fish.FishId,
-                    FishName = fish.FishName,
-                    FishType = fish.FishType,
-                    FishSize = fish.FishSize
-                };
-                _model.Fishes.Add(editorViewModel);
-            }
-
-            return View(_model);
+            return RedirectToAction("GetAllAquascapes", "Home");
         }
 
         [HttpPost]
@@ -114,8 +154,8 @@ namespace AquascapeThemeKillerApp.Controllers
                     where selectedIds.Contains(fish.FishId)
                     select fish).ToList();
 
-                _sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
-                _aquascapeModel = _aquascapeLogic.AssembleFishes(selectedFishes, _sessionAquascapeModel);
+                _sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeItemSelectionViewModel>("AquascapeObject");
+                _aquascapeModel = ConvertAquascapeModel(_aquascapeLogic.AssembleFishes(selectedFishes, ConvertSelectionViewModel(_sessionAquascapeModel)));
 
                 HttpContext.Session.SetObject("AquascapeObject", _aquascapeModel);
 
@@ -124,6 +164,7 @@ namespace AquascapeThemeKillerApp.Controllers
             catch (ArgumentException e)
             {
                 Console.WriteLine(e);
+                ViewBag.Message = string.Format("{0}", e);
                 return View(_sessionAquascapeModel);
             }
             catch (Exception e)
@@ -134,7 +175,7 @@ namespace AquascapeThemeKillerApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitSelectedPlant(AquascapeItemSelectionViewModel model)
+        public IActionResult SubmitSelectedPlant(AquascapeItemSelectionViewModel model)
         {
             try
             {
@@ -144,8 +185,8 @@ namespace AquascapeThemeKillerApp.Controllers
                     where selectedIds.Contains(plant.PlantId)
                     select plant).ToList();
 
-                _sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
-                _aquascapeModel = _aquascapeLogic.AssemblePlants(selectedPlants, _sessionAquascapeModel);
+                _sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeItemSelectionViewModel>("AquascapeObject");
+                _aquascapeModel = ConvertAquascapeModel(_aquascapeLogic.AssemblePlants(selectedPlants, ConvertSelectionViewModel(_sessionAquascapeModel)));
 
                 HttpContext.Session.SetObject("AquascapeObject", _aquascapeModel);
 
@@ -154,6 +195,7 @@ namespace AquascapeThemeKillerApp.Controllers
             catch (ArgumentException e)
             {
                 Console.WriteLine(e);
+                ViewBag.Message = string.Format("{0}", e);
                 return View(_sessionAquascapeModel);
             }
             catch (Exception e)
@@ -164,31 +206,25 @@ namespace AquascapeThemeKillerApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(AquascapeItemSelectionViewModel model)
+        public ActionResult Create(AquascapeItemSelectionViewModel model) 
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeModel>("AquascapeObject");
-                    _aquascapeCollection.AddAquascape(_sessionAquascapeModel);
+                    _sessionAquascapeModel = HttpContext.Session.GetObject<AquascapeItemSelectionViewModel>("AquascapeObject");
+                    _sessionAquascapeModel.AquascapeName = model.AquascapeName;
+                    _aquascapeCollection.AddAquascape(ConvertSelectionViewModel(_sessionAquascapeModel));
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    RedirectToAction("Error");
+                    ViewBag.Message = "Something went wrong! Try again later.";
                 }
                 
             }
 
-            return RedirectToAction("SubmitSelectedPlant");
-        }
-
-        [AllowAnonymous]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel
-                { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return RedirectToAction("GetAllAquascapes", "Home");
         }
 
         private static AquascapeModel ConvertSelectionViewModel(AquascapeItemSelectionViewModel model)
@@ -200,22 +236,49 @@ namespace AquascapeThemeKillerApp.Controllers
                 Difficulty = model.Difficulty
             };
 
-            var plants = new List<PlantModel>();
+            var plantModels = new List<PlantModel>();
             foreach (SelectPlantEditorViewModel plant in model.Plants)
             {
-                plants.Add(ConvertPlantViewModel(plant));
+                plantModels.Add(ConvertPlantViewModel(plant));
             }
 
-            var fishes = new List<FishModel>();
+            var fishModels = new List<FishModel>();
             foreach (SelectFishEditorViewModel fish in model.Fishes)
             {
-                fishes.Add(ConvertFishViewModel(fish));
+                fishModels.Add(ConvertFishViewModel(fish));
             }
 
-            aquascapeModel.PlantsInAquarium = plants;
-            aquascapeModel.FishInAquarium = fishes;
+            aquascapeModel.PlantsInAquarium = plantModels;
+            aquascapeModel.FishInAquarium = fishModels;
 
             return aquascapeModel;
+        }
+
+        private static AquascapeItemSelectionViewModel ConvertAquascapeModel(AquascapeModel model)
+        {
+            var aquascapeItemSelectionViewModel = new AquascapeItemSelectionViewModel
+            {
+                AquascapeId = model.AquascapeId,
+                AquascapeName = model.Name,
+                Difficulty = model.Difficulty
+            };
+
+            var plantModels = new List<SelectPlantEditorViewModel>();
+            foreach (PlantModel plant in model.PlantsInAquarium)
+            {
+                plantModels.Add(ConvertPlantModel(plant));
+            }
+
+            var fishModels = new List<SelectFishEditorViewModel>();
+            foreach (FishModel fish in model.FishInAquarium)
+            {
+                fishModels.Add(ConvertFishModel(fish));
+            }
+
+            aquascapeItemSelectionViewModel.Plants = plantModels;
+            aquascapeItemSelectionViewModel.Fishes = fishModels;
+
+            return aquascapeItemSelectionViewModel;
         }
 
         private static FishModel ConvertFishViewModel(SelectFishEditorViewModel fishViewModel)
@@ -241,6 +304,31 @@ namespace AquascapeThemeKillerApp.Controllers
             };
 
             return plantModel;
+        }
+
+        private static SelectPlantEditorViewModel ConvertPlantModel(PlantModel plantModel)
+        {
+            var plantViewModel = new SelectPlantEditorViewModel
+            {
+                PlantId = plantModel.PlantId,
+                PlantName = plantModel.PlantName,
+                Difficulty = plantModel.Difficulty
+            };
+
+            return plantViewModel;
+        }
+
+        private static SelectFishEditorViewModel ConvertFishModel(FishModel fishModel)
+        {
+            var fishViewModel = new SelectFishEditorViewModel()
+            {
+                FishId = fishModel.FishId,
+                FishName = fishModel.FishName,
+                FishType = fishModel.FishType,
+                FishSize = fishModel.FishSize
+            };
+
+            return fishViewModel;
         }
     }
 }

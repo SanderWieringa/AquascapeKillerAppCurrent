@@ -36,9 +36,10 @@ namespace AquascapeThemeKillerApp.Controllers
             {
                 return View(ConvertToPlantModelList(1));
             }
-            catch (System.Exception ex)
+            catch (Exception e)
             {
-                throw new System.Exception("Something went wrong!", ex);
+                ViewBag.Message = "Something went wrong! Try again later.";
+                return default;
             }
         }
 
@@ -49,7 +50,7 @@ namespace AquascapeThemeKillerApp.Controllers
             {
                 return View(ConvertToFishModelList(1));
             }
-            catch
+            catch(Exception e)
             {
                 return default;
             }

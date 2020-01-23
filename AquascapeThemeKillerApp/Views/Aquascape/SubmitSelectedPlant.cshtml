@@ -1,4 +1,4 @@
-﻿@model AquascapeThemeKillerApp.Logic_Interfaces.AquascapeModel
+﻿@model AquascapeThemeKillerApp.Models.AquascapeItemSelectionViewModel
 
 @{
     ViewData["Title"] = "AquascapeDetails";
@@ -10,10 +10,10 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.AquascapeName)
             </dt>
             <dd>
-                @Html.EditorFor(model => model.Name)
+                @Html.EditorFor(model => model.AquascapeName)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Difficulty)
@@ -23,6 +23,7 @@
             </dd>
         </dl>
     </div>
+
 
     <table class="table">
         <thead>
@@ -36,7 +37,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.PlantsInAquarium)
+            @foreach (var item in Model.Plants)
             {
                 <tr>
                     <td>
@@ -54,6 +55,7 @@
         <input type="button" name="operation" value="Add Plants" />
     </a>
 
+
     <table class="table">
         <thead>
             <tr>
@@ -69,7 +71,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.FishInAquarium)
+            @foreach (var item in Model.Fishes)
             {
                 <tr>
                     <td>
@@ -91,5 +93,8 @@
         <input type="button" name="operation" value="Add Fishes" />
     </a>
 
-    <input id="button" type="submit" value="Save" class="btn btn-default" />
+    <div style="text-align: center">
+        <input id="button" type="submit" value="Save" class="btn btn-default"/>
+    </div>
+    
 }
