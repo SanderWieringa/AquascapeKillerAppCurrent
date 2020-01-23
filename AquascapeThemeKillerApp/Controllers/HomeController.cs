@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AquascapeThemeKillerApp.Models;
 using AquascapeThemeKillerApp.Logic_Interfaces;
 using AquascapeThemeKillerApp.Logic_Factory;
 using java.lang;
-using Amazon.OpsWorks.Model;
 using Exception = java.lang.Exception;
 
 namespace AquascapeThemeKillerApp.Controllers
@@ -22,11 +19,6 @@ namespace AquascapeThemeKillerApp.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult CreateNewAquascape()
-        {
-            return RedirectToAction();
         }
 
         [HttpGet]
@@ -57,20 +49,6 @@ namespace AquascapeThemeKillerApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult AssembleAquascape()
-        {
-            AssembleAquascapeViewModel viewModel = new AssembleAquascapeViewModel();
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        public ActionResult SubmitSelectedPlant()
-        {
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
         public IActionResult AquascapeDetails(int id)
         {
             try
@@ -96,7 +74,9 @@ namespace AquascapeThemeKillerApp.Controllers
         {
             try
             {
-                return View(_aquascapeGeneratorLogic.GenerateAquascape());
+                AquascapeItemSelectionViewModel aquascapeSelectionModel = ConvertAquascapeModel(_aquascapeGeneratorLogic.GenerateAquascape());
+                HttpContext.Session.SetObject("AquascapeObject", aquascapeSelectionModel);
+                return View(aquascapeSelectionModel);
             }
             catch (Exception e)
             {
@@ -145,10 +125,57 @@ namespace AquascapeThemeKillerApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        //public AquascapeModel ConvertGeneratedAquascapeModel()
-        //{
-        //    return _aquascapeLogic.GenerateAquascape();
-        //}
+        private static AquascapeItemSelectionViewModel ConvertAquascapeModel(AquascapeModel model)
+        {
+            var aquascapeItemSelectionViewModel = new AquascapeItemSelectionViewModel
+            {
+                AquascapeId = model.AquascapeId,
+                AquascapeName = model.Name,
+                Difficulty = model.Difficulty
+            };
+
+            var plantModels = new List<SelectPlantEditorViewModel>();
+            foreach (PlantModel plant in model.PlantsInAquarium)
+            {
+                plantModels.Add(ConvertPlantModel(plant));
+            }
+
+            var fishModels = new List<SelectFishEditorViewModel>();
+            foreach (FishModel fish in model.FishInAquarium)
+            {
+                fishModels.Add(ConvertFishModel(fish));
+            }
+
+            aquascapeItemSelectionViewModel.Plants = plantModels;
+            aquascapeItemSelectionViewModel.Fishes = fishModels;
+
+            return aquascapeItemSelectionViewModel;
+        }
+
+        private static SelectPlantEditorViewModel ConvertPlantModel(PlantModel plantModel)
+        {
+            var plantViewModel = new SelectPlantEditorViewModel
+            {
+                PlantId = plantModel.PlantId,
+                PlantName = plantModel.PlantName,
+                Difficulty = plantModel.Difficulty
+            };
+
+            return plantViewModel;
+        }
+
+        private static SelectFishEditorViewModel ConvertFishModel(FishModel fishModel)
+        {
+            var fishViewModel = new SelectFishEditorViewModel()
+            {
+                FishId = fishModel.FishId,
+                FishName = fishModel.FishName,
+                FishType = fishModel.FishType,
+                FishSize = fishModel.FishSize
+            };
+
+            return fishViewModel;
+        }
 
         public List<AquascapeModel> ConvertToAquascapeModelList()
         {
@@ -185,10 +212,5 @@ namespace AquascapeThemeKillerApp.Controllers
 
             return fishModelList;
         }
-
-        //private AquascapeModel ConvertToAquascapeModel(int aquascapeId)
-        //{
-        //    return _aquascapeCollectionLogic.GetAquascapeById(aquascapeId);
-        //}
     }
 }

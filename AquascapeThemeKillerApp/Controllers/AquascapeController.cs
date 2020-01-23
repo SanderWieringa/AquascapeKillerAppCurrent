@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Amazon.Runtime;
 using AquascapeThemeKillerApp.Logic_Factory;
 using AquascapeThemeKillerApp.Logic_Interfaces;
 using AquascapeThemeKillerApp.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AquascapeThemeKillerApp.DAL;
-using AquascapeThemeKillerApp.DAL_Interfaces;
-using AquascapeThemeKillerApp.Logic;
-using AquascapeThemeKillerApp.Logic_Interfaces;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,8 +21,6 @@ namespace AquascapeThemeKillerApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
-
-            
 
             services.Configure<CookiePolicyOptions>(options =>
             {

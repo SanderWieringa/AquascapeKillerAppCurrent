@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AquascapeThemeKillerApp.Logic_Factory;
+﻿using AquascapeThemeKillerApp.Logic_Factory;
 using AquascapeThemeKillerApp.Logic_Interfaces;
-using AquascapeThemeKillerApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AquascapeThemeKillerApp.Controllers
